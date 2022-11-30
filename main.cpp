@@ -24,33 +24,59 @@ class NFA{
 class LexicalAnalyzerGenerator{
 private:
     string lexicalRulesPath;
-    unordered_map<string,NFA*> RegularDefs;
+    unordered_map<string,queue<string>> RegularDefsPostfixs;
     unordered_set<char> fixedRulesChars = {'-','|','+','(',')','*'};
 public:
     LexicalAnalyzerGenerator(string lexicalRulesPath): lexicalRulesPath(lexicalRulesPath){}
     vector<NFA> generateNFAs(){
         ifstream file(lexicalRulesPath);
         string lexicalRuleLine;
+        vector<string> keywords;
+        vector<string> punctuations;
         if (file.is_open()){
             while (getline(file, lexicalRuleLine))
-            {   if(lexicalRuleLine[0]!='{' && lexicalRuleLine[0]!='[')
-                    getNFAFromRE(lexicalRuleLine);
+            {
+                if(lexicalRuleLine[0]!='{')
+                    addKeywords(keywords,lexicalRuleLine);
+                else if(lexicalRuleLine[0]!='[')
+                    addPunctuations(punctuations,lexicalRuleLine);
+                else{
+                    pair<string,int> tokenNameAndAssignIndex = getTokenName(lexicalRuleLine);
+                    bool isRE = (lexicalRuleLine[tokenNameAndAssignIndex.second] == '=');
+
+                }
             }
             file.close();
         }
         return {};
     }
-private:
-    //NFA
-    void getNFAFromRE(string lexicalRuleLine){
-        pair<string,int> tokenNameAndIndex = getTokenName(lexicalRuleLine);
-        bool isRE = (lexicalRuleLine[tokenNameAndIndex.second] == '=');
-        for (int i = tokenNameAndIndex.second + 1; i < lexicalRuleLine.size() ; ++i) {
-            while (lexicalRuleLine[i]==' ') i++;
+//private:
+    //assume each keyword is separated from others with spaces
+    void addKeywords(vector<string> &keywords,string & lexicalRuleLine){
+        int lineLength = lexicalRuleLine.size();
+        string endChars = " /n/t}";
+        string keyword = "";
+
+        for(int i=1;i<lineLength-1;i++){
+            while (lexicalRuleLine[i]==' '&& i<lineLength-1) i++;
+            keyword= "";
+            while (i<lineLength && endChars.find(lexicalRuleLine[i]) == string::npos)
+                keyword+=lexicalRuleLine[i++];
+            if(!keyword.empty())
+             keywords.push_back(keyword);
         }
-        cout<<tokenNameAndIndex.first<<endl;
     }
-    // first -> token name, second-> index of assign operator for RE or RD
+    void addPunctuations(vector<string> &punctuations,string & lexicalRuleLine){
+        int lineLength = lexicalRuleLine.size();
+        string punctuation;
+        for(int i=1;i<lineLength-1;i++){
+            if(lexicalRuleLine[i]==' ')
+                continue;
+            punctuation = (lexicalRuleLine[i]=='\\')? lexicalRuleLine[++i] : lexicalRuleLine[i];
+            punctuations.push_back(punctuation);
+        }
+    }
+    /** first -> token name, second-> index of assign operator for RE or RD*/
     pair<string,int> getTokenName(string lexicalRuleLine){
         int i = 0;
         while (lexicalRuleLine[i]==' ') i++;
@@ -62,11 +88,25 @@ private:
         }
         return {tokenName,i};
     }
+
+    queue<string> getPostFix(string lexicalRuleLine,int startIndex){
+        queue<string> postfix;
+        for (int i = startIndex + 1; i < lexicalRuleLine.size() ; ++i) {
+            while (lexicalRuleLine[i]==' ') i++;
+        }
+    }
+
+
 };
 
 int main() {
     LexicalAnalyzerGenerator lexicalAnalyzerGenerator =  LexicalAnalyzerGenerator("..\\lexical_rules.txt");
-    lexicalAnalyzerGenerator.generateNFAs();
-
+//    lexicalAnalyzerGenerator.generateNFAs();
+    vector<string> punctuations;
+    string lex = "[;, \\( \\) { }]";
+    lexicalAnalyzerGenerator.addPunctuations(punctuations,lex);
+    for (int i = 0; i <punctuations.size() ; ++i) {
+        cout<<punctuations[i]<<endl;
+    }
     return 0;
 }
