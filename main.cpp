@@ -24,7 +24,6 @@ class NFA{
 class LexicalAnalyzerGenerator{
 private:
     string lexicalRulesPath;
-    unordered_map<string,queue<string>> RegularDefsPostfixs;
     unordered_set<char> fixedRulesChars = {'-','|','+','(',')','*'};
 public:
     LexicalAnalyzerGenerator(string lexicalRulesPath): lexicalRulesPath(lexicalRulesPath){}
@@ -33,6 +32,8 @@ public:
         string lexicalRuleLine;
         vector<string> keywords;
         vector<string> punctuations;
+        vector<pair<string,string>> RDs;
+        vector<pair<string,queue<string>>> REsPostfixs;
         if (file.is_open()){
             while (getline(file, lexicalRuleLine))
             {
@@ -42,7 +43,13 @@ public:
                     addPunctuations(punctuations,lexicalRuleLine);
                 else{
                     pair<string,int> tokenNameAndAssignIndex = getTokenName(lexicalRuleLine);
-                    bool isRE = (lexicalRuleLine[tokenNameAndAssignIndex.second] == '=');
+                    string expression = lexicalRuleLine.substr(tokenNameAndAssignIndex.second+1);
+                    bool isRD = (lexicalRuleLine[tokenNameAndAssignIndex.second] == '=');
+                    replaceRDs(expression,RDs);
+                    if(isRD)
+                        RDs.push_back({tokenNameAndAssignIndex.first,expression});
+                    else
+                        REsPostfixs.push_back({tokenNameAndAssignIndex.first, getPostFix(expression)});
 
                 }
             }
@@ -88,11 +95,21 @@ public:
         }
         return {tokenName,i};
     }
-
-    queue<string> getPostFix(string lexicalRuleLine,int startIndex){
+    /** replace RDs in RE and RD with it only Terminals*/
+    // assume no Expression will be defined  with RD before this RD is defined
+    // assume RDs name will if one's name is part of other one the smaller will be defined first
+    void replaceRDs(string &expression,vector<pair<string,string>> &RDs){
+        int index;
+        for(int i= RDs.size()-1;i>=0;i--){
+            while((index = expression.find(RDs[i].first)) != string::npos) {    //for each location where RD name is found
+                expression.replace(index, RDs[i].first.length(), "("+RDs[i].second+")"); //remove and replace from that position
+            }
+        }
+    }
+    queue<string> getPostFix(string expression){
         queue<string> postfix;
-        for (int i = startIndex + 1; i < lexicalRuleLine.size() ; ++i) {
-            while (lexicalRuleLine[i]==' ') i++;
+        for (int i = 0; i < expression.size() ; ++i) {
+            while (expression[i]==' ') i++;
         }
     }
 
@@ -103,10 +120,9 @@ int main() {
     LexicalAnalyzerGenerator lexicalAnalyzerGenerator =  LexicalAnalyzerGenerator("..\\lexical_rules.txt");
 //    lexicalAnalyzerGenerator.generateNFAs();
     vector<string> punctuations;
-    string lex = "[;, \\( \\) { }]";
-    lexicalAnalyzerGenerator.addPunctuations(punctuations,lex);
-    for (int i = 0; i <punctuations.size() ; ++i) {
-        cout<<punctuations[i]<<endl;
-    }
+    string ex = " letter (letter|digit)* digit digits";
+    vector<pair<string,string>> RDs= {{"letter","a-z | A-Z"},{"digit","0 - 9"},{"digits","(0 - 9)+"}};
+    lexicalAnalyzerGenerator.replaceRDs(ex,RDs);
+    cout<<ex;
     return 0;
 }
