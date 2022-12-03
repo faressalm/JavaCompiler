@@ -12,6 +12,7 @@ class State{
             isAccepting = false;
         }
 };
+
 class NFA{
     public:
         State* startState;
