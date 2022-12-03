@@ -17,8 +17,8 @@ public:
     const int id;
     State();
     void addTransition(const string& label, State* next);
-    unordered_set<State * , MyHashFunction> move(unordered_set<State *> nodes);
-    unordered_set<State *, MyHashFunction> e_closure(unordered_set<State *> nodes);
+    unordered_set<State * , MyHashFunction> move(unordered_set<State *> &nodes, string label);
+    unordered_set<State *, MyHashFunction> e_closure(unordered_set<State *> &nodes);
 };
 class MyHashFunction {
 public:

@@ -1,5 +1,3 @@
-
-
 #include "NFA.h"
 #include <bits/stdc++.h>
 
@@ -144,4 +142,45 @@ NFA NFA_builder::kleene_closure(NFA &a) {
     NFA c = positive_closure(a);
     c.start->addTransition(eps, c.end);
     return c;
+}
+unordered_set<State * , MyHashFunction> State::e_closure(unordered_set<State *> &nodes) {
+    unordered_set<State * , MyHashFunction> result;
+    queue<State *> q;
+    for(auto &node : nodes){
+        q.push(node);
+    }
+    while(!q.empty()){
+        State* node = q.front();
+        q.pop();
+        auto itr = node->transitions.find(eps);
+        if(itr == node->transitions.end()){
+            continue;
+        }
+        for(int i = 0 ; i < (int) (itr->second).size() ; i++){
+            if(result.find( (itr->second)[i]) == result.end()){
+                result.insert(  (itr->second)[i] );
+                q.push( (itr->second)[i] );
+            }
+        }
+    }
+    return result;
+}
+/**
+ * Compute the next set of states after perform a transition with a specific label
+ * @param nodes
+ * @param label
+ * @return
+ */
+unordered_set<State * , MyHashFunction> State::move(unordered_set<State *> &nodes, string label) {
+    unordered_set<State * , MyHashFunction> result;
+    for(auto &node : nodes) {
+        auto itr = node->transitions.find(label);
+        if (itr == node->transitions.end())
+            continue;
+        else {
+            for (int i = 0; i < (int) (itr->second).size(); i++)
+                result.insert((itr->second)[i]);
+        }
+    }
+    return result;
 }
