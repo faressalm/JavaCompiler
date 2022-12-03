@@ -1,3 +1,15 @@
 # ninja log v5
-5	2062	6914578752565345	CMakeFiles/JavaCompiler.dir/main.cpp.obj	c78e3cd1a2c497aa
-2062	2217	6914578754065445	JavaCompiler.exe	bae219831ea923c9
+46	4645	6918064746909654	CMakeFiles/JavaCompiler.dir/LexicalRulesParser/lexical_rules_generator.cpp.obj	e3165fe58609ca36
+5	3627	6918064736768149	CMakeFiles/JavaCompiler.dir/main.cpp.obj	c78e3cd1a2c497aa
+4645	5272	6918064753165312	JavaCompiler.exe	ba9626ee84630280
+29	5568	6918049855921322	CMakeFiles/JavaCompiler.dir/NFA/NFA.cpp.obj	983ae8220905d92b
+4	2236	6918065149798201	CMakeFiles/JavaCompiler.dir/main.cpp.obj	c78e3cd1a2c497aa
+2237	2862	6918065155978172	JavaCompiler.exe	ba9626ee84630280
+5	4700	6918065810937285	CMakeFiles/JavaCompiler.dir/LexicalRulesParser/lexical_rules_generator.cpp.obj	e3165fe58609ca36
+4701	5425	6918065818184037	JavaCompiler.exe	ba9626ee84630280
+6	3921	6918066364469122	CMakeFiles/JavaCompiler.dir/LexicalRulesParser/lexical_rules_generator.cpp.obj	e3165fe58609ca36
+3922	4705	6918066372258274	JavaCompiler.exe	ba9626ee84630280
+6	4186	6918066499440611	CMakeFiles/JavaCompiler.dir/LexicalRulesParser/lexical_rules_generator.cpp.obj	e3165fe58609ca36
+4187	4856	6918066506099677	JavaCompiler.exe	ba9626ee84630280
+4	2222	6918066801437616	CMakeFiles/JavaCompiler.dir/main.cpp.obj	c78e3cd1a2c497aa
+2222	2857	6918066807733597	JavaCompiler.exe	ba9626ee84630280

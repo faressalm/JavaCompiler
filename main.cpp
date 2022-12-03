@@ -1,10 +1,32 @@
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
-
 #include "NFA/NFA.h"
+#include "LexicalRulesParser/lexical_rules_generator.h"
 
 int main() {
+    LexicalAnalyzerGenerator lexicalAnalyzerGenerator =  LexicalAnalyzerGenerator("..\\lexical_rules.txt");
+    pair<vector<pair<string,int>>, vector<queue<pair<string,bool>>>> bb = lexicalAnalyzerGenerator.generateNFAs();
+    vector<pair<string,int>> tokensAndPriorities  = bb.first;
+    vector<queue<pair<string,bool>>> postfixes = bb.second;
+    vector<string> punctuations;
+    string ex = "\\=\\= | !\\= | > | >\\= | < | <\\=";
+//    queue<pair<string,bool>> q = lexicalAnalyzerGenerator.getPostFix(ex);
+//
+//    while (!q.empty()){
+//
+//        cout<<q.front().first<<" "<<endl;
+//        q.pop();
+//    }
+
+    for(auto &b: postfixes){
+//        cout<< b.first<< ":  ";
+//        while (!b.second.empty()){
+//            cout<<b.second.front().first<<" ";
+//            b.second.pop();
+//        }
+//        cout<<endl;
+    }
     return 0;
 }
 
