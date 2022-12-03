@@ -9,7 +9,7 @@ class LexicalAnalyzerGenerator{
 private:
     const string lexicalRulesPath;
     // "." stands for concatenation
-    unordered_map<string,int>  fixedRulesChars = { {".",5},{"-",10}, {"|",4}, {"+",8}, {"(",0}, {")",0}, {"*",8}};
+    unordered_map<string,int>  fixedRulesChars = { {".",5},{"-",10}, {"|",6}, {"+",8}, {"(",0}, {")",0}, {"*",8}};
 public:
     LexicalAnalyzerGenerator(string lexicalRulesPath);
     pair<vector<pair<string,int>>, vector<queue<pair<string,bool>>>> generateNFAs();

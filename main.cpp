@@ -7,7 +7,7 @@ using namespace std;
 int main() {
     LexicalAnalyzerGenerator lexicalAnalyzerGenerator =  LexicalAnalyzerGenerator("..\\lexical_rules.txt");
     pair<vector<pair<string,int>>, vector<queue<pair<string,bool>>>> bb = lexicalAnalyzerGenerator.generateNFAs();
-    vector<pair<string,int>> tokensAndPriorities  = bb.first;
+    vector<pair<string,int>> namesAndPriorities  = bb.first;
     vector<queue<pair<string,bool>>> postfixes = bb.second;
     vector<string> punctuations;
     string ex = "\\=\\= | !\\= | > | >\\= | < | <\\=";
@@ -18,15 +18,15 @@ int main() {
 //        cout<<q.front().first<<" "<<endl;
 //        q.pop();
 //    }
-
-    for(auto &b: postfixes){
-//        cout<< b.first<< ":  ";
-//        while (!b.second.empty()){
-//            cout<<b.second.front().first<<" ";
-//            b.second.pop();
-//        }
-//        cout<<endl;
+    for (int i = 0; i < namesAndPriorities.size() ; ++i) {
+        cout<<namesAndPriorities[i].second<<": "<<namesAndPriorities[i].first<< ":  ";
+        while (!postfixes[i].empty()){
+            cout<<postfixes[i].front().first<<" ";
+            postfixes[i].pop();
+        }
+        cout<<endl;
     }
+
     return 0;
 }
 

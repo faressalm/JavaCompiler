@@ -46,7 +46,7 @@ using namespace std;
             REsPostfixs.push_back(getPostFix(keyword));
         }
         for(auto &punctuation:punctuations)
-        {
+        {   cout<< punctuation<<endl;
             REs.push_back({punctuation,priority++});
             REsPostfixs.push_back(getPostFix(punctuation));
         }
@@ -74,7 +74,7 @@ using namespace std;
         for(int i=1;i<lineLength-1;i++){
             if(lexicalRuleLine[i]==' ')
                 continue;
-            punctuation = (lexicalRuleLine[i]=='\\')? lexicalRuleLine[++i] : lexicalRuleLine[i];
+            punctuation = (lexicalRuleLine[i]=='\\')? lexicalRuleLine.substr(i++,2) : lexicalRuleLine.substr(i,1);
             punctuations.push_back(punctuation);
         }
     }
@@ -114,8 +114,9 @@ using namespace std;
             if(expression[i] == ' ')
                 continue;
             nextChar = expression.substr(i,1);
-            if(nextChar == "\\")
-                nextChar = (expression[++i] == 'L')? "\\L" : expression.substr(i,1);
+            if(nextChar == "\\"){
+                nextChar = (expression[++i] == 'L')? "\\L" : expression.substr(i-1,2);
+            }
             if(((!isOperator(prevChar)&&!wasOperator) || endChar.find(prevChar) != string::npos) && (!isOperator(nextChar)|| nextChar == "(") && prevChar != nextChar){ //check for concatenation
                 i--;
                 nextChar = ".";
@@ -124,7 +125,7 @@ using namespace std;
             }else
                 wasOperator = false;
             if(!isOperator(nextChar)&&!concatenateFound)
-                postfix.push({nextChar,false});
+                postfix.push({nextChar.size()==2? nextChar.substr(1): nextChar,false});
             else{
                 if(nextChar == "(")
                     operators.push(nextChar);
@@ -148,7 +149,6 @@ using namespace std;
             prevChar =nextChar;
             concatenateFound = false;
         }
-
         // get all the rest of operators to the queue
         while(!operators.empty())
         {
