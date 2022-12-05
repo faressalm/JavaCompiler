@@ -46,8 +46,8 @@ using namespace std;
             REsPostfixs.push_back(getPostFix(keyword));
         }
         for(auto &punctuation:punctuations)
-        {   cout<< punctuation<<endl;
-            REs.push_back({punctuation,priority++});
+        {
+            REs.push_back({punctuation.size()==2? punctuation.substr(1):punctuation,priority++});
             REsPostfixs.push_back(getPostFix(punctuation));
         }
         return {REs,REsPostfixs};
@@ -55,7 +55,7 @@ using namespace std;
 
     void LexicalAnalyzerGenerator::addKeywords(vector<string> &keywords,string & lexicalRuleLine){
         int lineLength = lexicalRuleLine.size();
-        string endChars = " /n/t}";
+        string endChars = " \n\t}";
         string keyword = "";
 
         for(int i=1;i<lineLength-1;i++){
@@ -106,7 +106,7 @@ using namespace std;
         queue<pair<string,bool>> postfix;
         string nextChar;
         stack<string> operators;
-        string  prevChar = "-"; // to check for the concatenation operator condition
+        string  prevChar = "start"; // to check for the concatenation operator condition
         bool concatenateFound = false;
         bool wasOperator = false;
         string endChar = "+*)";
@@ -117,15 +117,15 @@ using namespace std;
             if(nextChar == "\\"){
                 nextChar = (expression[++i] == 'L')? "\\L" : expression.substr(i-1,2);
             }
-            if(((!isOperator(prevChar)&&!wasOperator) || endChar.find(prevChar) != string::npos) && (!isOperator(nextChar)|| nextChar == "(") && prevChar != nextChar){ //check for concatenation
-                i--;
+            if(((!isOperator(prevChar)&&!wasOperator) || endChar.find(prevChar) != string::npos) && (!isOperator(nextChar)|| nextChar == "(")){ //check for concatenation
+                i-= nextChar.size();
                 nextChar = ".";
                 wasOperator = true;
                 concatenateFound = true;
             }else
                 wasOperator = false;
             if(!isOperator(nextChar)&&!concatenateFound)
-                postfix.push({nextChar.size()==2? nextChar.substr(1): nextChar,false});
+                postfix.push({nextChar.size()==2&& nextChar[1]!='L'? nextChar.substr(1): nextChar,false});
             else{
                 if(nextChar == "(")
                     operators.push(nextChar);

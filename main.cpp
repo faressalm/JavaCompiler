@@ -5,28 +5,19 @@ using namespace std;
 #include "LexicalRulesParser/lexical_rules_generator.h"
 
 int main() {
-    LexicalAnalyzerGenerator lexicalAnalyzerGenerator =  LexicalAnalyzerGenerator("..\\lexical_rules.txt");
-    pair<vector<pair<string,int>>, vector<queue<pair<string,bool>>>> bb = lexicalAnalyzerGenerator.generateNFAs();
-    vector<pair<string,int>> namesAndPriorities  = bb.first;
-    vector<queue<pair<string,bool>>> postfixes = bb.second;
-    vector<string> punctuations;
-    string ex = "\\=\\= | !\\= | > | >\\= | < | <\\=";
-//    queue<pair<string,bool>> q = lexicalAnalyzerGenerator.getPostFix(ex);
-//
-//    while (!q.empty()){
-//
-//        cout<<q.front().first<<" "<<endl;
-//        q.pop();
-//    }
-    for (int i = 0; i < namesAndPriorities.size() ; ++i) {
-        cout<<namesAndPriorities[i].second<<": "<<namesAndPriorities[i].first<< ":  ";
-        while (!postfixes[i].empty()){
-            cout<<postfixes[i].front().first<<" ";
-            postfixes[i].pop();
+    pair<vector<pair<string,int>>, vector<queue<pair<string,bool>>>> REs  =
+            LexicalAnalyzerGenerator("..\\lexical_rules.txt").generateNFAs();
+    NFA startNFA =  NFA_builder().build(REs.second,REs.first);
+    for(auto &state: startNFA.start->transitions)
+        cout<<state.first<<" ";
+    for (int i = 0; i < REs.first.size() ; ++i) {
+        cout<<REs.first[i].second<<": "<<REs.first[i].first<< ":  ";
+        while (!REs.second[i].empty()){
+            cout<<REs.second[i].front().first<<" ";
+            REs.second[i].pop();
         }
         cout<<endl;
     }
-
     return 0;
 }
 
@@ -71,3 +62,15 @@ int main() {
 //REs.push_back(re2);
 //NFA_builder builder;
 //NFA c = builder.build(REs, tokens);
+
+
+/**test single RE*/
+//    vector<string> punctuations;
+//    string ex = "\\=\\= | !\\= | > | >\\= | < | <\\=";
+//    queue<pair<string,bool>> q = lexicalAnalyzerGenerator.getPostFix(ex);
+//
+//    while (!q.empty()){
+//
+//        cout<<q.front().first<<" ";
+//        q.pop();
+//    }
