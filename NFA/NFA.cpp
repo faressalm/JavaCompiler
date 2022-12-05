@@ -52,6 +52,7 @@ NFA NFA_builder::build(const vector<queue<pair<string, bool>>>& REs, const vecto
     }
     return c;
 }
+
 NFA NFA_builder::build_nfa(queue<pair<string, bool>> re, const pair<string, int>& token) {
     stack<NFA> NFAs;
     while (!re.empty()){
@@ -111,6 +112,7 @@ NFA NFA_builder::concatenate(NFA &a, NFA &b) {
     combine(a.acceptingStates, b.acceptingStates);
     return a;
 }
+
 NFA NFA_builder::hyphen(NFA &a, NFA &b) {
     char s , e ;
     auto itr = a.start->transitions.begin();
@@ -143,6 +145,7 @@ NFA NFA_builder::kleene_closure(NFA &a) {
     c.start->addTransition(eps, c.end);
     return c;
 }
+
 unordered_set<State * , MyHashFunction> State::e_closure(unordered_set<State *> &nodes) {
     unordered_set<State * , MyHashFunction> result;
     queue<State *> q;
