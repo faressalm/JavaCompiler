@@ -5,13 +5,13 @@
 #define JAVACOMPILER_LEXICAL_RULES_GENERATOR_H
 #include <bits/stdc++.h>
 using namespace std;
-class LexicalAnalyzerGenerator{
+class LexicalRulesGenerator{
 private:
     const string lexicalRulesPath;
     // "." stands for concatenation
     unordered_map<string,int>  fixedRulesChars = { {"start",100},{".",5},{"-",10}, {"|",4}, {"+",8}, {"(",0}, {")",0}, {"*",8}};
 public:
-    LexicalAnalyzerGenerator(string lexicalRulesPath);
+    LexicalRulesGenerator(string lexicalRulesPath);
     pair<vector<pair<string,int>>, vector<queue<pair<string,bool>>>> generateNFAs();
 //private:
     //assume each keyword is separated from others with spaces

@@ -5,9 +5,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-    LexicalAnalyzerGenerator::LexicalAnalyzerGenerator(string lexicalRulesPath):
+    LexicalRulesGenerator::LexicalRulesGenerator(string lexicalRulesPath):
             lexicalRulesPath(lexicalRulesPath){}
-    pair<vector<pair<string,int>>, vector<queue<pair<string,bool>>>> LexicalAnalyzerGenerator::generateNFAs(){
+    pair<vector<pair<string,int>>, vector<queue<pair<string,bool>>>> LexicalRulesGenerator::generateNFAs(){
         ifstream file(lexicalRulesPath);
         string lexicalRuleLine;
         vector<string> keywords;
@@ -53,7 +53,7 @@ using namespace std;
         return {REs,REsPostfixs};
     }
 
-    void LexicalAnalyzerGenerator::addKeywords(vector<string> &keywords,string & lexicalRuleLine){
+    void LexicalRulesGenerator::addKeywords(vector<string> &keywords, string & lexicalRuleLine){
         int lineLength = lexicalRuleLine.size();
         string endChars = " \n\t}";
         string keyword = "";
@@ -68,7 +68,7 @@ using namespace std;
         }
     }
 
-    void LexicalAnalyzerGenerator::addPunctuations(vector<string> &punctuations,string & lexicalRuleLine){
+    void LexicalRulesGenerator::addPunctuations(vector<string> &punctuations, string & lexicalRuleLine){
         int lineLength = lexicalRuleLine.size();
         string punctuation;
         for(int i=1;i<lineLength-1;i++){
@@ -80,7 +80,7 @@ using namespace std;
     }
 
     /** first -> token name, second-> index of assign operator for RE or RD*/
-    pair<string,int> LexicalAnalyzerGenerator::getTokenName(string lexicalRuleLine){
+    pair<string,int> LexicalRulesGenerator::getTokenName(string lexicalRuleLine){
         int i = 0;
         while (lexicalRuleLine[i]==' ') i++;
         string tokenName="";
@@ -93,7 +93,7 @@ using namespace std;
     }
 
     /** replace RDs in RE and RD with it only Terminals*/
-    void LexicalAnalyzerGenerator::replaceRDs(string &expression,vector<pair<string,string>> &RDs){
+    void LexicalRulesGenerator::replaceRDs(string &expression, vector<pair<string,string>> &RDs){
         int index;
         for(int i= RDs.size()-1;i>=0;i--){
             while((index = expression.find(RDs[i].first)) != string::npos) {    //for each location where RD name is found
@@ -102,7 +102,7 @@ using namespace std;
         }
     }
 
-    queue<pair<string,bool>> LexicalAnalyzerGenerator::getPostFix(string expression){
+    queue<pair<string,bool>> LexicalRulesGenerator::getPostFix(string expression){
         queue<pair<string,bool>> postfix;
         string nextChar;
         stack<string> operators;
@@ -158,6 +158,6 @@ using namespace std;
         return postfix;
     }
 
-    bool LexicalAnalyzerGenerator::isOperator (string nextChar) {
+    bool LexicalRulesGenerator::isOperator (string nextChar) {
         return fixedRulesChars.find(nextChar) != fixedRulesChars.end()  && nextChar != ".";
     }
