@@ -32,7 +32,7 @@ using namespace std;
                     if(isRD)
                         RDs.push_back({tokenNameAndAssignIndex.first,expression});
                     else{
-                        REs.push_back({tokenNameAndAssignIndex.first,priority++});
+                        REs.push_back({tokenNameAndAssignIndex.first,0});
                         REsPostfixs.push_back(getPostFix(expression));
                     }
 
@@ -40,6 +40,8 @@ using namespace std;
             }
             file.close();
         }
+        for(int i = REs.size()-1;i>=0;i--)
+            REs[i].second = priority++;
         for(auto &keyword:keywords)
         {
             REs.push_back({keyword,priority++});

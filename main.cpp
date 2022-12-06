@@ -14,13 +14,15 @@ int main() {
     NFA startNFA =  NFA_builder().build(REs.second,REs.first);
     //get DFA
     DFA dfa = DFA_builder::build_dfa(startNFA);
-    cout << (int)dfa.states.size() << "\n";
+    cout << dfa.states[dfa.states[0].transitions["a"]].accepting << "\n";
     //parse program file
-    LexicalAnalyzer lexicalAnalyzer = LexicalAnalyzer("..\\testprogram.txt");
+    LexicalAnalyzer lexicalAnalyzer = LexicalAnalyzer("..\\testprogram.txt",dfa,dfa.states[0]);
     pair<string,string> nameAndValue;
     ofstream outputFile("..\\lexicalOutput.txt", std::ofstream::out);
-    while(!(nameAndValue = lexicalAnalyzer.getNextToken()).first.empty())
-        outputFile << nameAndValue.first << endl;
+    while(!lexicalAnalyzer.fileClosed){
+        if(!(nameAndValue = lexicalAnalyzer.getNextToken()).first.empty())
+            outputFile << nameAndValue.first << " : "<<nameAndValue.second<<endl;
+    }
     outputFile.close();
 
     return 0;

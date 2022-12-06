@@ -3,7 +3,7 @@
 
 #include "../NFA/NFA.h"
 
-class DFA_State {
+class  DFA_State {
 public:
 
     int id;
