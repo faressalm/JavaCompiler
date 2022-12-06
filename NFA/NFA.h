@@ -18,8 +18,8 @@ public:
     State();
 
     void addTransition(const string& label, State* next);
-    unordered_set<State*, MyHashFunction> move(unordered_set<State*> &nodes, string label);
-    unordered_set<State*, MyHashFunction> e_closure(unordered_set<State*> &nodes);
+    unordered_set<State*> move(unordered_set<State*> &nodes, string label);
+    unordered_set<State*> e_closure(unordered_set<State* > &nodes);
 };
 
 class MyHashFunction {
@@ -33,16 +33,29 @@ public:
         return x;
     }
 };
-
+namespace std
+{
+    template<>struct hash< unordered_set<State*> >{
+        size_t operator() (const unordered_set<State*>& st) const noexcept {
+            size_t res = 0;
+            auto op = hash<unordered_set<State*>::value_type>{};
+            for(const auto& elem: st){
+                res ^= op(elem);
+            }
+            return res;
+        }
+    };
+}
 class NFA{
 public:
     State* start;
     State* end;
-    unordered_map<State*, pair<string, int>, MyHashFunction> acceptingStates; // node > (Token_Name, priority)
+    unordered_map<State*, pair<string, int>> acceptingStates; // node > (Token_Name, priority)
 
     explicit NFA(const string& label);
-    NFA(State* start, State* end, unordered_map<State*, pair<string, int>, MyHashFunction> acceptingStates);
+    NFA(State* start, State* end, unordered_map<State*, pair<string, int>> acceptingStates);
     NFA();
+    set<string> chars;
 };
 
 /** Builder functions **/
