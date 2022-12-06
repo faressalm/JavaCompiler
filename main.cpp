@@ -4,6 +4,7 @@ using namespace std;
 #include "NFA/NFA.h"
 #include "LexicalRulesParser/lexical_rules_generator.h"
 #include "lexical_analyzer.h"
+#include "DFA/DFA.h"
 
 int main() {
     // rule parsing
@@ -11,10 +12,9 @@ int main() {
             LexicalRulesGenerator("..\\lexical_rules.txt").generateNFAs();
     // get NFA
     NFA startNFA =  NFA_builder().build(REs.second,REs.first);
-    //get DFS
-    //TODO::
-    //get MIN DFS
-    //TODO::
+    //get DFA
+    DFA dfa = DFA_builder::build_dfa(startNFA);
+    cout << (int)dfa.states.size() << "\n";
     //parse program file
     LexicalAnalyzer lexicalAnalyzer = LexicalAnalyzer("..\\testprogram.txt");
     pair<string,string> nameAndValue;
@@ -22,6 +22,7 @@ int main() {
     while(!(nameAndValue = lexicalAnalyzer.getNextToken()).first.empty())
         outputFile << nameAndValue.first << endl;
     outputFile.close();
+
     return 0;
 }
 
