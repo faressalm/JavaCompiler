@@ -177,6 +177,9 @@ unordered_set<State * > State::e_closure(unordered_set<State * > &nodes) {
             }
         }
     }
+    for(State* state : nodes ){
+        result.insert(state);
+    }
     return result;
 }
 /**
