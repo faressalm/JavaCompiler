@@ -22,7 +22,7 @@ public:
     vector<DFA_State> states ;
 
     DFA(vector<DFA_State> states);
-    void transition_table(string path);
+    void transition_table(string path, set<string> chars);
 };
 
 class DFA_builder {
