@@ -14,6 +14,34 @@ DFA::DFA(vector<DFA_State> states) {
   this->states = states;
 }
 
+void DFA::transition_table(string path, set<string> chars) {
+    ofstream myFile;
+    myFile.open(path);
+    set<string>::iterator itr;
+    myFile << "State/Input";
+    myFile << "," << "Accepting?";
+    int counter = 0;
+    for (itr = chars.begin(); itr != chars.end(); itr++) {
+        counter++;
+        if (*itr == ",")
+            myFile << ",\",\"";
+        else
+            myFile << "," << (*itr);
+    }
+
+    myFile << "\n";
+    for (auto state : this->states) {
+        myFile << state.id;
+        myFile << "," << state.accepting;
+        for (itr = chars.begin(); itr != chars.end(); itr++)
+            myFile << "," << state.transitions.find(*itr)->second;
+
+        myFile << "\n";
+    }
+
+    myFile.close();
+}
+
 DFA DFA_builder::build_dfa(NFA combinedNFA) {
     unordered_map< unordered_set<State*> , int  > visited;
     queue< unordered_set<State*> > q ; // unvisited
