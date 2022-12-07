@@ -3,7 +3,42 @@
 
 using namespace std;
 
-
+void tokenize(string& s, DFA& dfa ){
+    int curr = 0 , lastAcc = 0 ;
+    if(dfa.states.size() == 0 ) return ;
+    DFA_State pos = dfa.states[0];
+    string label = "";
+    string token = "";
+    int priority = INT_MIN;
+    //DFA_State last_acc_state = dfa.states[0];
+    while(curr != (int) s.size()){
+        label = "";
+        token = "";
+        priority = INT_MIN;
+        label.push_back(s[curr]);
+        if(pos.accepting && priority <= pos.acceptance_state.second){ // start might be an accepting state also
+            lastAcc = curr;
+            token = pos.acceptance_state.first;
+            priority = pos.acceptance_state.second;
+        }
+        while(pos.id != dfa.reject_state  || pos.transitions.find(label) != pos.transitions.end()  ){
+            pos = dfa.states[pos.transitions[label]];
+            if(pos.accepting && priority <= pos.acceptance_state.second){
+                lastAcc = curr;
+                token = pos.acceptance_state.first;
+                priority = pos.acceptance_state.second;
+            }
+            curr++;
+            label.pop_back();
+            label.push_back(s[curr]);
+        }
+        if(token != "") {
+            cout << token << "\n";
+        }
+        pos = dfa.states[0];
+        curr = lastAcc + 1;
+    }
+}
 DFA_State::DFA_State(int id){
     this->id = id;
     this->accepting = false;
@@ -74,6 +109,8 @@ DFA DFA_builder::build_dfa(NFA combinedNFA) {
     }
     // TODO: Apply minimization @Monem, you have vector of states
     DFA dfa(states);
+    unordered_set<State*> empty_set;
+    dfa.reject_state = visited.at(empty_set);
     return dfa;
 }
 
@@ -85,7 +122,7 @@ void check_acceptance(DFA_State& state , unordered_set<State*>elem, NFA& nfa ){
         if( check != nfa.acceptingStates.end() ){
              if(check->second.second > priority ){
                  state.accepting = true;
-                 state.acceptance_state = check->second.first;
+                 state.acceptance_state = check->second;
                  priority = check->second.second;
              }
         }

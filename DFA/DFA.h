@@ -8,7 +8,7 @@ public:
 
     int id;
     bool accepting;
-    string acceptance_state;
+    pair<string,int> acceptance_state;
     unordered_map<string, int> transitions;
    /** bool operator< (const DFA_State *other) const {
         return this->id < other->id;
@@ -20,11 +20,11 @@ class DFA {
 public:
 
     vector<DFA_State> states ;
-
+    int reject_state; // index of reject state a.k.a empty state.
     DFA(vector<DFA_State> states);
     void transition_table(string path, set<string> chars);
 };
-
+void tokenize(string& s, DFA& dfa );
 class DFA_builder {
 public:
     static DFA build_dfa(NFA);
