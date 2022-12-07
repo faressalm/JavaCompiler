@@ -1,0 +1,8 @@
+id : int
+id : sum
+id : count
+id : pass
+id : mnt;
+id : while
+id : pass
+id : pass

@@ -35,8 +35,8 @@ NFA_builder::NFA_builder(){
 
 }
 
-void combine(unordered_map<State *, pair<string, int>> acceptingStates,
-             unordered_map<State *, pair<string, int>> acceptingStatesT){
+void combine(unordered_map<State *, pair<string, int>>& acceptingStates,
+             unordered_map<State *, pair<string, int>>& acceptingStatesT){
     auto itr = acceptingStatesT.begin();
     while(itr != acceptingStatesT.end()){
         acceptingStates[itr->first] = itr->second;
@@ -176,6 +176,9 @@ unordered_set<State * > State::e_closure(unordered_set<State * > &nodes) {
                 q.push( (itr->second)[i] );
             }
         }
+    }
+    for(State* state : nodes ){
+        result.insert(state);
     }
     return result;
 }

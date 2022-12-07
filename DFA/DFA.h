@@ -3,12 +3,12 @@
 
 #include "../NFA/NFA.h"
 
-class DFA_State {
+class  DFA_State {
 public:
 
     int id;
     bool accepting;
-    string acceptance_state;
+    pair<string,int> acceptance_state;
     unordered_map<string, int> transitions;
 
     DFA_State(int id);
@@ -20,11 +20,11 @@ public:
     unordered_map<State*, pair<string, int>, MyHashFunction> acceptingStates; // node > (Token_Name, priority)
 
     vector<DFA_State> states ;
-
+    int reject_state; // index of reject state a.k.a empty state.
     DFA(vector<DFA_State> states);
-    void transition_table(string path);
+    void transition_table(string path, set<string> chars);
 };
-
+void tokenize(string& s, DFA& dfa );
 class DFA_builder {
 public:
     static DFA build_dfa(NFA);

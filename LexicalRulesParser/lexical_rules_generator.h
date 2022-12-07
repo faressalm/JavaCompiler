@@ -14,7 +14,7 @@ public:
     LexicalRulesGenerator(string lexicalRulesPath);
     pair<vector<pair<string,int>>, vector<queue<pair<string,bool>>>> generateNFAs();
 //private:
-    //assume each keyword is separated from others with spaces
+    //assume each keyword must be  separated from others with spaces
     void addKeywords(vector<string> &keywords,string & lexicalRuleLine);
 
     void addPunctuations(vector<string> &punctuations,string & lexicalRuleLine);
@@ -24,7 +24,7 @@ public:
 
     /** replace RDs in RE and RD with it only Terminals*/
     // assume no Expression will be defined  with RD before this RD is defined
-    // assume RDs name will if one's name is part of other one the smaller will be defined first
+    // assume The RD with a token name that's part of another RD token name will be defined first
     void replaceRDs(string &expression,vector<pair<string,string>> &RDs);
 
     queue<pair<string,bool>> getPostFix(string expression);
