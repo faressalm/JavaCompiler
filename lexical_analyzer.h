@@ -19,7 +19,7 @@ private:
     char prevChar = '\n';
     char getNextChar();
     bool isSplitChar(char c);
-    void checkForPrevChar(string rawToken,stack<DFA_State> & maxMunch,DFA_State &dfaState);
+    bool checkForPrevChar(string & rawToken,stack<DFA_State> & maxMunch,DFA_State &dfaState);
 
 public:
     bool fileClosed = false;
