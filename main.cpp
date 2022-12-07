@@ -7,6 +7,28 @@ using namespace std;
 #include "DFA/DFA.h"
 
 int main() {
+    // rule parsing
+    pair<vector<pair<string,int>>, vector<queue<pair<string,bool>>>> REs  =
+            LexicalRulesGenerator("..\\lexical_rules.txt").generateNFAs();
+    // get NFA
+    NFA startNFA =  NFA_builder().build(REs.second,REs.first);
+    //get DFA
+    DFA dfa = DFA_builder::build_dfa(startNFA);;
+    //parse program file
+    LexicalAnalyzer lexicalAnalyzer = LexicalAnalyzer("..\\testprogram.txt",dfa,dfa.states[0]);
+    pair<string,string> nameAndValue;
+    ofstream outputFile("..\\lexicalOutput.txt", std::ofstream::out);
+    while(!lexicalAnalyzer.fileClosed){
+//    for(int i=0;i<3;i++){
+        if(!(nameAndValue = lexicalAnalyzer.getNextToken()).first.empty())
+            outputFile << nameAndValue.first<<endl;
+    }
+    outputFile.close();
+
+    return 0;
+}
+
+void test(){
     DFA_State a = DFA_State(0);
     DFA_State b = DFA_State(1);
     DFA_State c = DFA_State(2);
@@ -62,26 +84,6 @@ int main() {
     v.push_back(e);
     v.push_back(f);
     DFA test = DFA_builder::minimize_dfa(v, 2);
-
-    // rule parsing
-    pair<vector<pair<string,int>>, vector<queue<pair<string,bool>>>> REs  =
-            LexicalRulesGenerator("..\\lexical_rules.txt").generateNFAs();
-    // get NFA
-    NFA startNFA =  NFA_builder().build(REs.second,REs.first);
-    //get DFA
-    DFA dfa = DFA_builder::build_dfa(startNFA);
-    cout << dfa.states[dfa.states[0].transitions["a"]].accepting << "\n";
-    //parse program file
-    LexicalAnalyzer lexicalAnalyzer = LexicalAnalyzer("..\\testprogram.txt",dfa,dfa.states[0]);
-    pair<string,string> nameAndValue;
-    ofstream outputFile("..\\lexicalOutput.txt", std::ofstream::out);
-    while(!lexicalAnalyzer.fileClosed){
-        if(!(nameAndValue = lexicalAnalyzer.getNextToken()).first.empty())
-            outputFile << nameAndValue.first << " : "<<nameAndValue.second<<endl;
-    }
-    outputFile.close();
-
-    return 0;
 }
 
 ////LexicalRulesGenerator lexicalAnalyzerGenerator =  LexicalRulesGenerator("..\\lexical_rules.txt");

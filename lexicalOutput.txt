@@ -1,8 +1,23 @@
-id : int
-id : sum
-id : count
-id : pass
-id : mnt;
-id : while
-id : pass
-id : pass
+int
+id
+,
+id
+,
+id
+,
+id
+;
+while
+(
+id
+relop
+num
+)
+{
+id
+assign
+id
+addop
+num
+;
+}

@@ -8,7 +8,6 @@ using namespace std;
     LexicalRulesGenerator::LexicalRulesGenerator(string lexicalRulesPath):
             lexicalRulesPath(lexicalRulesPath){}
     pair<vector<pair<string,int>>, vector<queue<pair<string,bool>>>> LexicalRulesGenerator::generateNFAs(){
-        cout << lexicalRulesPath << "\n";
         ifstream file(lexicalRulesPath);
         string lexicalRuleLine;
         vector<string> keywords;

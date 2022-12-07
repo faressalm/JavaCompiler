@@ -134,11 +134,13 @@ void check_acceptance(DFA_State& state , unordered_set<State*>elem, NFA& nfa ){
 DFA DFA_builder::minimize_dfa(vector<DFA_State> dfa_States, int reject_state_index) {
     int number_of_states = dfa_States.size();
     vector<vector<int>> mark_table(number_of_states, vector<int> (number_of_states, -1));
+    cout<<number_of_states;
+    cout<<"C0"<<endl;
     // initialize mark table
     for (int i = 0; i <= number_of_states; ++i) {
         for (int row = 0; row < number_of_states; ++row) {
             for (int col = 0; col < number_of_states; ++col) {
-                if (row > col) {
+               if (row > col) {
                     if (mark_table[row][col] == 1) continue;
                     DFA_State temp1 = dfa_States[row];
                     DFA_State temp2 = dfa_States[col];
@@ -161,6 +163,7 @@ DFA DFA_builder::minimize_dfa(vector<DFA_State> dfa_States, int reject_state_ind
             }
         }
     }
+    cout<<"C1"<<endl;
     vector<set<int>> combinedStates;
     for (int row = 0; row < number_of_states; ++row) {
         for (int col = 0; col < number_of_states; ++col) {
@@ -177,7 +180,7 @@ DFA DFA_builder::minimize_dfa(vector<DFA_State> dfa_States, int reject_state_ind
             }
         }
     }
-
+    cout<<"C2"<<endl;
     for (int i = 0; i < combinedStates.size(); ++i) {
         if (!combinedStates[i].empty()){
             set<int> tempSet1 = combinedStates[i];
@@ -195,7 +198,7 @@ DFA DFA_builder::minimize_dfa(vector<DFA_State> dfa_States, int reject_state_ind
             }
         }
     }
-
+    cout<<"C3"<<endl;
     vector<set<int>> final_partitions;
     for (int i = 0; i < combinedStates.size(); ++i) {
         set<int> temp_set = combinedStates[i];
@@ -203,7 +206,7 @@ DFA DFA_builder::minimize_dfa(vector<DFA_State> dfa_States, int reject_state_ind
             final_partitions.push_back(temp_set);
         }
     }
-
+    cout<<"C4"<<endl;
     for (int i = 0; i < dfa_States.size(); ++i) {
         bool in_combined_state = false;
         int state_id = dfa_States[i].id;
@@ -220,6 +223,7 @@ DFA DFA_builder::minimize_dfa(vector<DFA_State> dfa_States, int reject_state_ind
             final_partitions.push_back(single_state_set);
         }
     }
+    cout<<"C5"<<endl;
     vector<DFA_State> minimized_dfa;
     int new_reject_index;
     for (int i = 0; i < final_partitions.size(); ++i) {
@@ -239,6 +243,8 @@ DFA DFA_builder::minimize_dfa(vector<DFA_State> dfa_States, int reject_state_ind
         myState.acceptance_state = originalState.acceptance_state;
         minimized_dfa.push_back(myState);
     }
+    cout<<"C6"<<endl;
+
     DFA dfa = DFA(minimized_dfa);
     dfa.reject_state = new_reject_index;
     return dfa;

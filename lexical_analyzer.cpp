@@ -23,45 +23,46 @@ char LexicalAnalyzer::getNextChar(){
 }
 pair<string,string> LexicalAnalyzer::getNextToken(){
     string rawToken = "";
-    char nextChar;
+    char nextChar = getNextChar();
     pair<string,string> nameAndValue;
-
     stack<DFA_State> maxMunch;
     DFA_State dfaState = startState;
-    checkForPrevChar(rawToken,maxMunch,dfaState);
-
-    while(! fileClosed && isSplitChar(nextChar = getNextChar())){cout<<nextChar<<"ss"<<endl;}
+    if (!checkForPrevChar(rawToken,maxMunch,dfaState))
+        while(! fileClosed && isSplitChar(nextChar )){nextChar = getNextChar();}
     while(! fileClosed && !isSplitChar(nextChar)){
-        rawToken += nextChar;
         string charStr (1,nextChar);
-        maxMunch.push(dfaState);
-        if(dfaState.transitions.find(charStr) != dfaState.transitions.end())
+        rawToken += nextChar;
+        if(dfaState.transitions.find(charStr) != dfaState.transitions.end() && dfaState.transitions[charStr] != dfa.reject_state)
             dfaState = dfa.states[dfaState.transitions[charStr]];
         else {
+            rawToken.pop_back();
             cout<<"error found in line: "<<currentInputLine<<", invalid token: "<< rawToken<< nextChar<<endl;
             break;
         }
+        maxMunch.push(dfaState);
         nextChar = getNextChar();
         prevChar  = nextChar;
     }
     while(!maxMunch.empty()&&!maxMunch.top().accepting){
-        cout<<rawToken<<endl;
         maxMunch.pop();
         rawToken.pop_back();
     }
     if(maxMunch.empty())
         return {"",""};// no token
     else
-        return {maxMunch.top().acceptance_state,rawToken};
+        return {maxMunch.top().acceptance_state.first,rawToken};
 }
 bool LexicalAnalyzer::isSplitChar(char c){
     return splitCharacters.find(c) != splitCharacters.end();
 }
 
-void LexicalAnalyzer::checkForPrevChar(string rawToken,stack<DFA_State> & maxMunch,DFA_State &dfaState ){
-    if(!isSplitChar(prevChar) && startState.transitions.find(rawToken+prevChar) != startState.transitions.end()){
+bool LexicalAnalyzer::checkForPrevChar(string & rawToken,stack<DFA_State> & maxMunch,DFA_State &dfaState ){
+    if(!isSplitChar(prevChar) && startState.transitions.find(rawToken+prevChar) != startState.transitions.end() && startState.transitions[rawToken+prevChar] != dfa.reject_state){
         rawToken+=prevChar;
         dfaState = dfa.states[dfaState.transitions[rawToken]];
         maxMunch.push(dfaState);
+        prevChar = '\n';
+        return true;
     }
+    return false;
 }

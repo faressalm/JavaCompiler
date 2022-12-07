@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/JavaCompiler.dir/main.cpp.o CMakeFiles/JavaCompiler.dir/NFA/NFA.cpp.o CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.o CMakeFiles/JavaCompiler.dir/LexicalRulesParser/lexical_rules_generator.cpp.o CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.o -o JavaCompiler 
