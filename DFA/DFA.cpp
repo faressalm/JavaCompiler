@@ -10,6 +10,7 @@ DFA_State::DFA_State(int id){
 }
 void check_acceptance(DFA_State& state , unordered_set<State*>elem, NFA& nfa );
 bool same_states(DFA_State state1, DFA_State state2, vector<vector<int>> mark_table, vector<DFA_State>& states);
+int find_in_partitions(int state_index, vector<set<int>> partitions);
 DFA::DFA(vector<DFA_State> states) {
   this->states = states;
 }
@@ -44,8 +45,8 @@ DFA DFA_builder::build_dfa(NFA combinedNFA) {
             states[idx].transitions[label] = itr->second;
         }
     }
-    // TODO: Apply minimization @Monem, you have vector of states
-    DFA dfa(states);
+    vector<DFA_State> minimized_states =  minimize_dfa(states);
+    DFA dfa(minimized_states);
     return dfa;
 }
 
@@ -65,10 +66,8 @@ void check_acceptance(DFA_State& state , unordered_set<State*>elem, NFA& nfa ){
     }
 }
 
-DFA DFA_builder::minimize_dfa(vector<DFA_State> dfa_States) {
+vector<DFA_State> DFA_builder::minimize_dfa(vector<DFA_State> dfa_States) {
     int number_of_states = dfa_States.size();
-    vector< DFA_State > dfa_copy = dfa_States;
-    //sort(dfa_copy.begin(), dfa_copy.end());
     vector<vector<int>> mark_table(number_of_states, vector<int> (number_of_states, -1));
     // initialize mark table
     for (int i = 0; i <= number_of_states; ++i) {
@@ -76,12 +75,12 @@ DFA DFA_builder::minimize_dfa(vector<DFA_State> dfa_States) {
             for (int col = 0; col < number_of_states; ++col) {
                 if (row > col) {
                     if (mark_table[row][col] == 1) continue;
-                    DFA_State temp1 = dfa_copy[row];
-                    DFA_State temp2 = dfa_copy[col];
+                    DFA_State temp1 = dfa_States[row];
+                    DFA_State temp2 = dfa_States[col];
                     if (temp1.accepting != temp2.accepting) { // accepting state with non-accepting state
                         mark_table[row][col] = 1;
                     }
-                        // two different accepting states
+                    // two different accepting states
                     else if (temp1.accepting && temp2.accepting &&
                              temp1.acceptance_state != temp2.acceptance_state) {
                         mark_table[row][col] = 1;
@@ -97,11 +96,80 @@ DFA DFA_builder::minimize_dfa(vector<DFA_State> dfa_States) {
             }
         }
     }
+    vector<set<int>> combinedStates;
+    for (int row = 0; row < number_of_states; ++row) {
+        for (int col = 0; col < number_of_states; ++col) {
+            if (row > col) {
+                if (mark_table[row][col] == -1) {
+                    set<int> temp;
+                    temp.insert(col);
+                    temp.insert(row);
+                    combinedStates.push_back(temp);
+                }
+            }
+            else{
+                break;
+            }
+        }
+    }
 
-    // to be implemented
-    vector<DFA_State> d;
-    DFA dfa(d);
-    return dfa;
+    for (int i = 0; i < combinedStates.size(); ++i) {
+        if (!combinedStates[i].empty()){
+            set<int> tempSet1 = combinedStates[i];
+            for (int j = i + 1; j < combinedStates.size(); ++j) {
+                set<int> tempSet2 = combinedStates[j];
+                set<int> intersect;
+                set_intersection(tempSet1.begin(), tempSet1.end(), tempSet2.begin(), tempSet2.end(),
+                                 inserter(intersect, intersect.begin()));
+                if (!intersect.empty()){
+                    tempSet1.insert(tempSet2.begin(), tempSet2.end());
+                    set<int> empty_set;
+                    combinedStates[j] = empty_set;
+                    combinedStates[i] = tempSet1;
+                }
+            }
+        }
+    }
+
+    vector<set<int>> final_partitions;
+    for (int i = 0; i < combinedStates.size(); ++i) {
+        set<int> temp_set = combinedStates[i];
+        if (!temp_set.empty()) {
+            final_partitions.push_back(temp_set);
+        }
+    }
+
+    for (int i = 0; i < dfa_States.size(); ++i) {
+        bool in_combined_state = false;
+        int state_id = dfa_States[i].id;
+        for (int j = 0; j < final_partitions.size(); ++j) {
+            set<int> temp_set = final_partitions[j];
+            if (temp_set.find(state_id) != temp_set.end()) {
+                in_combined_state = true;
+                break;
+            }
+        }
+        if (!in_combined_state) {
+            set<int> single_state_set;
+            single_state_set.insert(state_id);
+            final_partitions.push_back(single_state_set);
+        }
+    }
+    vector<DFA_State> minimized_dfa;
+    for (int i = 0; i < final_partitions.size(); ++i) {
+        DFA_State myState = DFA_State(i);
+        set<int> partition = final_partitions[i];
+        DFA_State originalState = dfa_States[*partition.begin()];
+        unordered_map<string, int> myMap;
+        for (auto j : originalState.transitions) {
+            myMap.insert({j.first, find_in_partitions(j.second, final_partitions)});
+        }
+        myState.transitions = myMap;
+        myState.accepting = originalState.accepting;
+        myState.acceptance_state = originalState.acceptance_state;
+        minimized_dfa.push_back(myState);
+    }
+    return minimized_dfa;
 }
 
 bool same_states(DFA_State state1, DFA_State state2, vector<vector<int>> mark_table, vector<DFA_State>& states) {
@@ -115,6 +183,15 @@ bool same_states(DFA_State state1, DFA_State state2, vector<vector<int>> mark_ta
         int row = max(transition1.id, transition2.id);
         int col = min(transition1.id, transition2.id);
         if (mark_table[row][col] == 1) return false;
-        return true;
+    }
+    return true;
+}
+
+int find_in_partitions(int state_index, vector<set<int>> partitions) {
+    for (int i = 0; i < partitions.size(); ++i) {
+        set<int> tempSet = partitions[i];
+        if (tempSet.find(state_index) != tempSet.end()) {
+            return i;
+        }
     }
 }

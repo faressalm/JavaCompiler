@@ -97,10 +97,24 @@ CMakeFiles/JavaCompiler.dir/NFA/NFA.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/JavaCompiler.dir/NFA/NFA.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/abdelmonem/CLionProjects/JavaCompiler/NFA/NFA.cpp -o CMakeFiles/JavaCompiler.dir/NFA/NFA.cpp.s
 
+CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.o: CMakeFiles/JavaCompiler.dir/flags.make
+CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.o: ../DFA/DFA.cpp
+CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.o: CMakeFiles/JavaCompiler.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/abdelmonem/CLionProjects/JavaCompiler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.o -MF CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.o.d -o CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.o -c /home/abdelmonem/CLionProjects/JavaCompiler/DFA/DFA.cpp
+
+CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/abdelmonem/CLionProjects/JavaCompiler/DFA/DFA.cpp > CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.i
+
+CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/abdelmonem/CLionProjects/JavaCompiler/DFA/DFA.cpp -o CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.s
+
 CMakeFiles/JavaCompiler.dir/LexicalRulesParser/lexical_rules_generator.cpp.o: CMakeFiles/JavaCompiler.dir/flags.make
 CMakeFiles/JavaCompiler.dir/LexicalRulesParser/lexical_rules_generator.cpp.o: ../LexicalRulesParser/lexical_rules_generator.cpp
 CMakeFiles/JavaCompiler.dir/LexicalRulesParser/lexical_rules_generator.cpp.o: CMakeFiles/JavaCompiler.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/abdelmonem/CLionProjects/JavaCompiler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/JavaCompiler.dir/LexicalRulesParser/lexical_rules_generator.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/abdelmonem/CLionProjects/JavaCompiler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/JavaCompiler.dir/LexicalRulesParser/lexical_rules_generator.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/JavaCompiler.dir/LexicalRulesParser/lexical_rules_generator.cpp.o -MF CMakeFiles/JavaCompiler.dir/LexicalRulesParser/lexical_rules_generator.cpp.o.d -o CMakeFiles/JavaCompiler.dir/LexicalRulesParser/lexical_rules_generator.cpp.o -c /home/abdelmonem/CLionProjects/JavaCompiler/LexicalRulesParser/lexical_rules_generator.cpp
 
 CMakeFiles/JavaCompiler.dir/LexicalRulesParser/lexical_rules_generator.cpp.i: cmake_force
@@ -114,7 +128,7 @@ CMakeFiles/JavaCompiler.dir/LexicalRulesParser/lexical_rules_generator.cpp.s: cm
 CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.o: CMakeFiles/JavaCompiler.dir/flags.make
 CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.o: ../lexical_analyzer.cpp
 CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.o: CMakeFiles/JavaCompiler.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/abdelmonem/CLionProjects/JavaCompiler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/abdelmonem/CLionProjects/JavaCompiler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.o -MF CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.o.d -o CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.o -c /home/abdelmonem/CLionProjects/JavaCompiler/lexical_analyzer.cpp
 
 CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.i: cmake_force
@@ -125,36 +139,22 @@ CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/abdelmonem/CLionProjects/JavaCompiler/lexical_analyzer.cpp -o CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.s
 
-CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.o: CMakeFiles/JavaCompiler.dir/flags.make
-CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.o: ../DFA/DFA.cpp
-CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.o: CMakeFiles/JavaCompiler.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/abdelmonem/CLionProjects/JavaCompiler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.o -MF CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.o.d -o CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.o -c /home/abdelmonem/CLionProjects/JavaCompiler/DFA/DFA.cpp
-
-CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/abdelmonem/CLionProjects/JavaCompiler/DFA/DFA.cpp > CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.i
-
-CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/abdelmonem/CLionProjects/JavaCompiler/DFA/DFA.cpp -o CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.s
-
 # Object files for target JavaCompiler
 JavaCompiler_OBJECTS = \
 "CMakeFiles/JavaCompiler.dir/main.cpp.o" \
 "CMakeFiles/JavaCompiler.dir/NFA/NFA.cpp.o" \
+"CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.o" \
 "CMakeFiles/JavaCompiler.dir/LexicalRulesParser/lexical_rules_generator.cpp.o" \
-"CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.o" \
-"CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.o"
+"CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.o"
 
 # External object files for target JavaCompiler
 JavaCompiler_EXTERNAL_OBJECTS =
 
 JavaCompiler: CMakeFiles/JavaCompiler.dir/main.cpp.o
 JavaCompiler: CMakeFiles/JavaCompiler.dir/NFA/NFA.cpp.o
+JavaCompiler: CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.o
 JavaCompiler: CMakeFiles/JavaCompiler.dir/LexicalRulesParser/lexical_rules_generator.cpp.o
 JavaCompiler: CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.o
-JavaCompiler: CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.o
 JavaCompiler: CMakeFiles/JavaCompiler.dir/build.make
 JavaCompiler: CMakeFiles/JavaCompiler.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/abdelmonem/CLionProjects/JavaCompiler/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable JavaCompiler"

@@ -7,6 +7,62 @@ using namespace std;
 #include "DFA/DFA.h"
 
 int main() {
+    DFA_State a = DFA_State(0);
+    DFA_State b = DFA_State(1);
+    DFA_State c = DFA_State(2);
+    DFA_State d = DFA_State(3);
+    DFA_State e = DFA_State(4);
+    DFA_State f = DFA_State(5);
+
+    a.accepting = false;
+    b.accepting = false;
+    c.accepting = true;
+    c.acceptance_state = 'a';
+    d.accepting = true;
+    d.acceptance_state = 'a';
+    e.accepting = true;
+    e.acceptance_state = 'a';
+
+    unordered_map<string, int> ma;
+    ma.insert({"0", 1});
+    ma.insert({"1", 2});
+
+    unordered_map<string, int> mb;
+    mb.insert({"0", 0});
+    mb.insert({"1", 3});
+
+    unordered_map<string, int> mc;
+    mc.insert({"0", 4});
+    mc.insert({"1", 5});
+
+    unordered_map<string, int> md;
+    md.insert({"0", 4});
+    md.insert({"1", 5});
+
+    unordered_map<string, int> me;
+    me.insert({"0", 4});
+    me.insert({"1", 5});
+
+    unordered_map<string, int> mf;
+    mf.insert({"0", 5});
+    mf.insert({"1", 5});
+
+    a.transitions = ma;
+    b.transitions = mb;
+    c.transitions = mc;
+    d.transitions = md;
+    e.transitions = me;
+    f.transitions = mf;
+
+    vector<DFA_State> v;
+    v.push_back(a);
+    v.push_back(b);
+    v.push_back(c);
+    v.push_back(d);
+    v.push_back(e);
+    v.push_back(f);
+    DFA test = DFA_builder::minimize_dfa(v);
+
     // rule parsing
     pair<vector<pair<string,int>>, vector<queue<pair<string,bool>>>> REs  =
             LexicalRulesGenerator("..\\lexical_rules.txt").generateNFAs();

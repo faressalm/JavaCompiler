@@ -10,9 +10,7 @@ public:
     bool accepting;
     string acceptance_state;
     unordered_map<string, int> transitions;
-   /** bool operator< (const DFA_State *other) const {
-        return this->id < other->id;
-    }**/
+
     DFA_State(int id);
 };
 
@@ -30,7 +28,7 @@ public:
 class DFA_builder {
 public:
     static DFA build_dfa(NFA);
-    DFA minimize_dfa(vector<DFA_State>);
+    static vector<DFA_State> minimize_dfa(vector<DFA_State>);
 };
 
 #endif //JAVACOMPILER_DFA_H

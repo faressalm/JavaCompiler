@@ -276,4 +276,6 @@ CMakeFiles/JavaCompiler.dir/main.cpp.o: \
  /usr/include/c++/9/bits/unordered_set.h /usr/include/c++/9/shared_mutex \
  /home/abdelmonem/CLionProjects/JavaCompiler/NFA/NFA.h \
  /home/abdelmonem/CLionProjects/JavaCompiler/LexicalRulesParser/lexical_rules_generator.h \
- /home/abdelmonem/CLionProjects/JavaCompiler/lexical_analyzer.h
+ /home/abdelmonem/CLionProjects/JavaCompiler/lexical_analyzer.h \
+ /home/abdelmonem/CLionProjects/JavaCompiler/DFA/DFA.h \
+ /home/abdelmonem/CLionProjects/JavaCompiler/DFA/../NFA/NFA.h
