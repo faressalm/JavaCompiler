@@ -276,4 +276,6 @@ CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.o: \
  /usr/include/c++/9/unordered_map /usr/include/c++/9/bits/hashtable.h \
  /usr/include/c++/9/bits/hashtable_policy.h \
  /usr/include/c++/9/bits/unordered_map.h /usr/include/c++/9/unordered_set \
- /usr/include/c++/9/bits/unordered_set.h /usr/include/c++/9/shared_mutex
+ /usr/include/c++/9/bits/unordered_set.h /usr/include/c++/9/shared_mutex \
+ /home/abdelmonem/CLionProjects/JavaCompiler/DFA/DFA.h \
+ /home/abdelmonem/CLionProjects/JavaCompiler/DFA/../NFA/NFA.h

@@ -1476,7 +1476,9 @@ CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.o: ../lexical_analyzer.cpp \
   /usr/include/c++/9/bits/unordered_map.h \
   /usr/include/c++/9/unordered_set \
   /usr/include/c++/9/bits/unordered_set.h \
-  /usr/include/c++/9/shared_mutex
+  /usr/include/c++/9/shared_mutex \
+  ../DFA/DFA.h \
+  ../NFA/NFA.h
 
 CMakeFiles/JavaCompiler.dir/main.cpp.o: ../main.cpp \
   /usr/include/stdc-predef.h \

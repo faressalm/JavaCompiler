@@ -17,11 +17,11 @@ int main() {
     a.accepting = false;
     b.accepting = false;
     c.accepting = true;
-    c.acceptance_state = 'a';
+    c.acceptance_state = {"a",1};
     d.accepting = true;
-    d.acceptance_state = 'a';
+    d.acceptance_state = {"a", 1};
     e.accepting = true;
-    e.acceptance_state = 'a';
+    e.acceptance_state = {"a", 1};
 
     unordered_map<string, int> ma;
     ma.insert({"0", 1});
