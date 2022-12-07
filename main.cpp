@@ -61,7 +61,7 @@ int main() {
     v.push_back(d);
     v.push_back(e);
     v.push_back(f);
-    DFA test = DFA_builder::minimize_dfa(v);
+    DFA test = DFA_builder::minimize_dfa(v, 2);
 
     // rule parsing
     pair<vector<pair<string,int>>, vector<queue<pair<string,bool>>>> REs  =

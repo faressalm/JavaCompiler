@@ -108,11 +108,10 @@ DFA DFA_builder::build_dfa(NFA combinedNFA) {
             states[idx].transitions[label] = itr->second;
         }
     }
-    // TODO: Apply minimization @Monem, you have vector of states
     DFA dfa(states);
     unordered_set<State*> empty_set;
     dfa.reject_state = visited.at(empty_set);
-    vector<DFA_State> minimized_states =  minimize_dfa(states);
+    DFA minimized_dfa =  minimize_dfa(states, dfa.reject_state);
     return dfa;
 }
 
@@ -132,7 +131,7 @@ void check_acceptance(DFA_State& state , unordered_set<State*>elem, NFA& nfa ){
     }
 }
 
-vector<DFA_State> DFA_builder::minimize_dfa(vector<DFA_State> dfa_States) {
+DFA DFA_builder::minimize_dfa(vector<DFA_State> dfa_States, int reject_state_index) {
     int number_of_states = dfa_States.size();
     vector<vector<int>> mark_table(number_of_states, vector<int> (number_of_states, -1));
     // initialize mark table
@@ -222,10 +221,15 @@ vector<DFA_State> DFA_builder::minimize_dfa(vector<DFA_State> dfa_States) {
         }
     }
     vector<DFA_State> minimized_dfa;
+    int new_reject_index;
     for (int i = 0; i < final_partitions.size(); ++i) {
         DFA_State myState = DFA_State(i);
         set<int> partition = final_partitions[i];
-        DFA_State originalState = dfa_States[*partition.begin()];
+        int state_id = *partition.begin();
+        if (state_id == reject_state_index) {
+            new_reject_index = i;
+        }
+        DFA_State originalState = dfa_States[state_id];
         unordered_map<string, int> myMap;
         for (auto j : originalState.transitions) {
             myMap.insert({j.first, find_in_partitions(j.second, final_partitions)});
@@ -235,7 +239,9 @@ vector<DFA_State> DFA_builder::minimize_dfa(vector<DFA_State> dfa_States) {
         myState.acceptance_state = originalState.acceptance_state;
         minimized_dfa.push_back(myState);
     }
-    return minimized_dfa;
+    DFA dfa = DFA(minimized_dfa);
+    dfa.reject_state = new_reject_index;
+    return dfa;
 }
 
 bool same_states(DFA_State state1, DFA_State state2, vector<vector<int>> mark_table, vector<DFA_State>& states) {

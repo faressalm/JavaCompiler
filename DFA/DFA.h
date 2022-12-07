@@ -28,7 +28,7 @@ void tokenize(string& s, DFA& dfa );
 class DFA_builder {
 public:
     static DFA build_dfa(NFA);
-    static vector<DFA_State> minimize_dfa(vector<DFA_State>);
+    static DFA minimize_dfa(vector<DFA_State>, int);
 };
 
 #endif //JAVACOMPILER_DFA_H
