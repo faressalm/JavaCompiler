@@ -14,7 +14,11 @@ int main() {
     NFA startNFA =  NFA_builder().build(REs.second,REs.first);
     //get DFA
     DFA dfa = DFA_builder::build_dfa(startNFA);;
+    dfa.transition_table( "..\\Transition_Table.csv",startNFA.chars);
+    //string a = "intsum1,count,pass,mnt;while(pass!=10){pass=pass+1}if(count==0)mnt=10;elsemnt=30;";
+    //tokenize(a, dfa);
     //parse program file
+    cout << "Number of states after minimization: "<<dfa.states.size() << "\n";
     LexicalAnalyzer lexicalAnalyzer = LexicalAnalyzer("..\\testprogram.txt",dfa,dfa.states[0]);
     pair<string,string> nameAndValue;
     ofstream outputFile("..\\lexicalOutput.txt", std::ofstream::out);

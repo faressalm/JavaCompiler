@@ -7,7 +7,6 @@ using namespace std;
 
 const string eps = "\\L";
 
-class MyHashFunction;
 
 class State{
 public:
@@ -22,17 +21,7 @@ public:
     unordered_set<State*> e_closure(unordered_set<State* > &nodes);
 };
 
-class MyHashFunction {
-public:
-    unsigned int operator()(const State* s) const
-    {
-        int x = s->id;
-        x = ((x >> 16) ^ x) * 0x45d9f3b;
-        x = ((x >> 16) ^ x) * 0x45d9f3b;
-        x = (x >> 16) ^ x;
-        return x;
-    }
-};
+
 namespace std
 {
     template<>struct hash< unordered_set<State*> >{

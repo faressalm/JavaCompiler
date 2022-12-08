@@ -16,9 +16,6 @@ public:
 
 class DFA {
 public:
-    State* start;
-    unordered_map<State*, pair<string, int>, MyHashFunction> acceptingStates; // node > (Token_Name, priority)
-
     vector<DFA_State> states ;
     int reject_state; // index of reject state a.k.a empty state.
     DFA(vector<DFA_State> states);

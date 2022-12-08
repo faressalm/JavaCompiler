@@ -15,9 +15,9 @@ void State::addTransition(const string& label, State *next) {
 }
 
 NFA::NFA(){
-  this->start = new State();
-  this->end = new State();
-  this->start->addTransition(eps, this->end);
+    this->start = new State();
+    this->end = new State();
+    this->start->addTransition(eps, this->end);
 }
 
 NFA::NFA(const string& label) {
@@ -67,29 +67,29 @@ NFA NFA_builder::build_nfa(queue<pair<string, bool>> re, const pair<string, int>
         pair<string, bool> label = re.front();
         re.pop();
         if(label.second){ // Operator
-              NFA b = NFAs.top();
-              NFAs.pop();
-             if(label.first == "|"){
-                   NFA a = NFAs.top();
-                   NFAs.pop();
-                   NFAs.push(Or(a , b));
-             }
-             else if (label.first == "."){
-                 NFA a = NFAs.top();
-                 NFAs.pop();
-                 NFAs.push(concatenate(a , b));
-             }
-             else if(label.first == "*"){
-                 NFAs.push(kleene_closure(b));
-             }
-             else if(label.first == "+"){
-                 NFAs.push(positive_closure(b));
-             }
-             else if(label.first == "-"){
-                 NFA a = NFAs.top();
-                 NFAs.pop();
-                 NFAs.push(hyphen(a , b));
-             }
+            NFA b = NFAs.top();
+            NFAs.pop();
+            if(label.first == "|"){
+                NFA a = NFAs.top();
+                NFAs.pop();
+                NFAs.push(Or(a , b));
+            }
+            else if (label.first == "."){
+                NFA a = NFAs.top();
+                NFAs.pop();
+                NFAs.push(concatenate(a , b));
+            }
+            else if(label.first == "*"){
+                NFAs.push(kleene_closure(b));
+            }
+            else if(label.first == "+"){
+                NFAs.push(positive_closure(b));
+            }
+            else if(label.first == "-"){
+                NFA a = NFAs.top();
+                NFAs.pop();
+                NFAs.push(hyphen(a , b));
+            }
         }
         else{
             labels.insert(label.first);
