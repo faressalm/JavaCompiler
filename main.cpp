@@ -22,7 +22,7 @@ int main() {
     ofstream outputFile("..\\lexicalOutput.txt", std::ofstream::out);
     while(!lexicalAnalyzer.fileClosed){
         if(!(nameAndValue = lexicalAnalyzer.getNextToken()).first.empty())
-            outputFile << nameAndValue.first<< " : "<<nameAndValue.second <<endl;
+            outputFile << nameAndValue.first<<endl;
     }
     outputFile.close();
 
