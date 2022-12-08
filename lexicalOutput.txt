@@ -1,23 +1,23 @@
-int
-id
-,
-id
-,
-id
-,
-id
-;
-while
-(
-id
-relop
-num
-)
-{
-id
-assign
-id
-addop
-num
-;
-}
+int : int
+id : sum
+, : ,
+id : count
+, : ,
+id : pass
+, : ,
+id : mnt
+; : ;
+while : while
+( : (
+id : pass
+relop : !=
+num : 10
+) : )
+{ : {
+id : pass
+assign : =
+id : pass
+addop : +
+num : 1
+; : ;
+} : }

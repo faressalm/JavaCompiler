@@ -1,9 +1,14 @@
 # ninja log v5
-6	3337	6921531403783884	CMakeFiles/JavaCompiler.dir/main.cpp.obj	c78e3cd1a2c497aa
+4	1756	6921824024802219	CMakeFiles/JavaCompiler.dir/main.cpp.obj	c78e3cd1a2c497aa
 7	3465	6921511817088486	CMakeFiles/JavaCompiler.dir/LexicalRulesParser/lexical_rules_generator.cpp.obj	e3165fe58609ca36
-6	6036	6921532954992894	CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.obj	52bbeae261f7cdd9
-6036	7903	6921532973645360	JavaCompiler.exe	61a0de2efabd707a
-5	5852	6921502388133408	CMakeFiles/JavaCompiler.dir/NFA/NFA.cpp.obj	983ae8220905d92b
-12	4800	6921532942664489	CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.obj	5ab0b17463b400af
-6	5903	6921535284667249	CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.obj	52bbeae261f7cdd9
-5903	7824	6921535303869931	JavaCompiler.exe	61a0de2efabd707a
+3	3268	6921827883177288	CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.obj	52bbeae261f7cdd9
+3268	4465	6921827895133988	JavaCompiler.exe	61a0de2efabd707a
+3	3815	6921815507636556	CMakeFiles/JavaCompiler.dir/NFA/NFA.cpp.obj	983ae8220905d92b
+3	1474	6921824838582848	CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.obj	5ab0b17463b400af
+13	3111	6921832529013130	CMakeFiles/JavaCompiler.dir/lexicalTests.cpp.obj	af4e80409b1a01ce
+10	3399	6921832531874075	CMakeFiles/JavaCompiler.dir/main.cpp.obj	c78e3cd1a2c497aa
+5	4379	6921832541647329	CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.obj	52bbeae261f7cdd9
+4379	6478	6921832562612074	JavaCompiler.exe	5b8d3d41c24d09f9
+11	2811	6921833609695896	CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.obj	5ab0b17463b400af
+5	2921	6921833610820232	CMakeFiles/JavaCompiler.dir/main.cpp.obj	c78e3cd1a2c497aa
+2921	4571	6921833627250142	JavaCompiler.exe	5b8d3d41c24d09f9

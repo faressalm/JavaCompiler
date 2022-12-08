@@ -8,8 +8,8 @@ char LexicalAnalyzer::getNextChar(){
     if(fileClosed)
        return ' ';
     if(inputLineIndex == inputLine.size()){
-        currentInputLine++;
         if(getline(inputFile, inputLine)){
+            currentInputLine++;
             inputLineIndex = 0;
             return '\n';
         }
@@ -29,6 +29,7 @@ pair<string,string> LexicalAnalyzer::getNextToken(){
     DFA_State dfaState = startState;
     if (!checkForPrevChar(rawToken,maxMunch,dfaState))
         while(! fileClosed && isSplitChar(nextChar )){nextChar = getNextChar();}
+    prevChar = nextChar;
     while(! fileClosed && !isSplitChar(nextChar)){
         string charStr (1,nextChar);
         rawToken += nextChar;
@@ -36,7 +37,6 @@ pair<string,string> LexicalAnalyzer::getNextToken(){
             dfaState = dfa.states[dfaState.transitions[charStr]];
         else {
             rawToken.pop_back();
-            cout<<"error found in line: "<<currentInputLine<<", invalid token: "<< rawToken<< nextChar<<endl;
             break;
         }
         maxMunch.push(dfaState);
@@ -63,6 +63,9 @@ bool LexicalAnalyzer::checkForPrevChar(string & rawToken,stack<DFA_State> & maxM
         maxMunch.push(dfaState);
         prevChar = '\n';
         return true;
+    }else if(!isSplitChar(prevChar)){
+        cout<<"error found in line: "<<currentInputLine<<", invalid token: "<< rawToken<< prevChar<<endl;
+        prevChar = '\n';
     }
     return false;
 }

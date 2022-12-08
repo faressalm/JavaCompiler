@@ -111,6 +111,7 @@ DFA DFA_builder::build_dfa(NFA combinedNFA) {
     DFA dfa(states);
     unordered_set<State*> empty_set;
     dfa.reject_state = visited.at(empty_set);
+    cout<<"Number of states before minimization: "<<dfa.states.size()<<endl;
     DFA minimized_dfa =  minimize_dfa(states, dfa.reject_state);
     return minimized_dfa;
 }
