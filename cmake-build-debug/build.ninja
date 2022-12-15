@@ -85,14 +85,6 @@ build CMakeFiles/JavaCompiler.dir/Tests/lexicalTests.cpp.obj: CXX_COMPILER__Java
   OBJECT_DIR = CMakeFiles\JavaCompiler.dir
   OBJECT_FILE_DIR = CMakeFiles\JavaCompiler.dir\Tests
 
-build CMakeFiles/JavaCompiler.dir/NFA/NFA.cpp.obj: CXX_COMPILER__JavaCompiler_Debug E$:/Education/UniversityYears/4$ year/first$ semester/Compiler/Assignments/AssginmentsSolutions/JavaCompiler/NFA/NFA.cpp || cmake_object_order_depends_target_JavaCompiler
-  DEP_FILE = CMakeFiles\JavaCompiler.dir\NFA\NFA.cpp.obj.d
-  FLAGS = -g -std=gnu++14
-  OBJECT_DIR = CMakeFiles\JavaCompiler.dir
-  OBJECT_FILE_DIR = CMakeFiles\JavaCompiler.dir\NFA
-  TARGET_COMPILE_PDB = CMakeFiles\JavaCompiler.dir\
-  TARGET_PDB = JavaCompiler.pdb
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target JavaCompiler
