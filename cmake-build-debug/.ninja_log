@@ -1,3 +1,17 @@
 # ninja log v5
-5	2062	6914578752565345	CMakeFiles/JavaCompiler.dir/main.cpp.obj	c78e3cd1a2c497aa
-2062	2217	6914578754065445	JavaCompiler.exe	bae219831ea923c9
+9	2333	6927950171801830	CMakeFiles/JavaCompiler.dir/main.cpp.obj	c78e3cd1a2c497aa
+7	3465	6921511817088486	CMakeFiles/JavaCompiler.dir/LexicalRulesParser/lexical_rules_generator.cpp.obj	e3165fe58609ca36
+13	3111	6921832529013130	CMakeFiles/JavaCompiler.dir/lexicalTests.cpp.obj	af4e80409b1a01ce
+3	2370	6927950815745965	CMakeFiles/JavaCompiler.dir/LexicalAnalyzer/main.cpp.obj	a957879430cdbf62
+4	3090	6927948572320333	CMakeFiles/JavaCompiler.dir/LexicalAnalyzer/NFA/NFA.cpp.obj	69e867759412bedd
+2718	5216	6927950200557997	JavaCompiler.exe	f5d4d829d6bce4f4
+5	4379	6921832541647329	CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.obj	52bbeae261f7cdd9
+3	3815	6921815507636556	CMakeFiles/JavaCompiler.dir/NFA/NFA.cpp.obj	983ae8220905d92b
+11	2811	6921833609695896	CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.obj	5ab0b17463b400af
+60	3063	6927948572278226	CMakeFiles/JavaCompiler.dir/LexicalAnalyzer/LexicalRulesParser/lexical_rules_generator.cpp.obj	d4dcf4f18228741b
+3	2717	6927950175640435	CMakeFiles/JavaCompiler.dir/LexicalAnalyzer/DFA/DFA.cpp.obj	6a348e8781ed40e0
+1	221	6927951260763216	build.ninja	8087de37372b87d0
+12	2213	6927950170587100	CMakeFiles/JavaCompiler.dir/Tests/lexicalTests.cpp.obj	ace5c8cc5da46ef9
+6	2330	6927950171770775	CMakeFiles/JavaCompiler.dir/LexicalAnalyzer/lexical_analyzer.cpp.obj	d56dfe1db8fa2144
+0	296	6927951260763216	build.ninja	8087de37372b87d0
+5	2145	6927951283131178	JavaCompiler.exe	f5d4d829d6bce4f4
