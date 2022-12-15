@@ -1,10 +1,11 @@
 #include <iostream>
 #include <bits/stdc++.h>
+#include "LexicalAnalyzer/NFA/NFA.h"
+#include "LexicalAnalyzer/LexicalRulesParser/lexical_rules_generator.h"
+#include "LexicalAnalyzer/lexical_analyzer.h"
+#include "LexicalAnalyzer/DFA/DFA.h"
+
 using namespace std;
-#include "NFA/NFA.h"
-#include "LexicalRulesParser/lexical_rules_generator.h"
-#include "lexical_analyzer.h"
-#include "DFA/DFA.h"
 
 int main() {
     // rule parsing

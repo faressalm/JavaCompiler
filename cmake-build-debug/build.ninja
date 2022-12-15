@@ -55,35 +55,35 @@ build CMakeFiles/JavaCompiler.dir/main.cpp.obj: CXX_COMPILER__JavaCompiler_Debug
   OBJECT_DIR = CMakeFiles\JavaCompiler.dir
   OBJECT_FILE_DIR = CMakeFiles\JavaCompiler.dir
 
-build CMakeFiles/JavaCompiler.dir/NFA/NFA.cpp.obj: CXX_COMPILER__JavaCompiler_Debug E$:/Education/UniversityYears/4$ year/first$ semester/Compiler/Assignments/AssginmentsSolutions/JavaCompiler/NFA/NFA.cpp || cmake_object_order_depends_target_JavaCompiler
-  DEP_FILE = CMakeFiles\JavaCompiler.dir\NFA\NFA.cpp.obj.d
+build CMakeFiles/JavaCompiler.dir/LexicalAnalyzer/NFA/NFA.cpp.obj: CXX_COMPILER__JavaCompiler_Debug E$:/Education/UniversityYears/4$ year/first$ semester/Compiler/Assignments/AssginmentsSolutions/JavaCompiler/LexicalAnalyzer/NFA/NFA.cpp || cmake_object_order_depends_target_JavaCompiler
+  DEP_FILE = CMakeFiles\JavaCompiler.dir\LexicalAnalyzer\NFA\NFA.cpp.obj.d
   FLAGS = -g -std=gnu++14
   OBJECT_DIR = CMakeFiles\JavaCompiler.dir
-  OBJECT_FILE_DIR = CMakeFiles\JavaCompiler.dir\NFA
+  OBJECT_FILE_DIR = CMakeFiles\JavaCompiler.dir\LexicalAnalyzer\NFA
 
-build CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.obj: CXX_COMPILER__JavaCompiler_Debug E$:/Education/UniversityYears/4$ year/first$ semester/Compiler/Assignments/AssginmentsSolutions/JavaCompiler/DFA/DFA.cpp || cmake_object_order_depends_target_JavaCompiler
-  DEP_FILE = CMakeFiles\JavaCompiler.dir\DFA\DFA.cpp.obj.d
+build CMakeFiles/JavaCompiler.dir/LexicalAnalyzer/DFA/DFA.cpp.obj: CXX_COMPILER__JavaCompiler_Debug E$:/Education/UniversityYears/4$ year/first$ semester/Compiler/Assignments/AssginmentsSolutions/JavaCompiler/LexicalAnalyzer/DFA/DFA.cpp || cmake_object_order_depends_target_JavaCompiler
+  DEP_FILE = CMakeFiles\JavaCompiler.dir\LexicalAnalyzer\DFA\DFA.cpp.obj.d
   FLAGS = -g -std=gnu++14
   OBJECT_DIR = CMakeFiles\JavaCompiler.dir
-  OBJECT_FILE_DIR = CMakeFiles\JavaCompiler.dir\DFA
+  OBJECT_FILE_DIR = CMakeFiles\JavaCompiler.dir\LexicalAnalyzer\DFA
 
-build CMakeFiles/JavaCompiler.dir/LexicalRulesParser/lexical_rules_generator.cpp.obj: CXX_COMPILER__JavaCompiler_Debug E$:/Education/UniversityYears/4$ year/first$ semester/Compiler/Assignments/AssginmentsSolutions/JavaCompiler/LexicalRulesParser/lexical_rules_generator.cpp || cmake_object_order_depends_target_JavaCompiler
-  DEP_FILE = CMakeFiles\JavaCompiler.dir\LexicalRulesParser\lexical_rules_generator.cpp.obj.d
+build CMakeFiles/JavaCompiler.dir/LexicalAnalyzer/LexicalRulesParser/lexical_rules_generator.cpp.obj: CXX_COMPILER__JavaCompiler_Debug E$:/Education/UniversityYears/4$ year/first$ semester/Compiler/Assignments/AssginmentsSolutions/JavaCompiler/LexicalAnalyzer/LexicalRulesParser/lexical_rules_generator.cpp || cmake_object_order_depends_target_JavaCompiler
+  DEP_FILE = CMakeFiles\JavaCompiler.dir\LexicalAnalyzer\LexicalRulesParser\lexical_rules_generator.cpp.obj.d
   FLAGS = -g -std=gnu++14
   OBJECT_DIR = CMakeFiles\JavaCompiler.dir
-  OBJECT_FILE_DIR = CMakeFiles\JavaCompiler.dir\LexicalRulesParser
+  OBJECT_FILE_DIR = CMakeFiles\JavaCompiler.dir\LexicalAnalyzer\LexicalRulesParser
 
-build CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.obj: CXX_COMPILER__JavaCompiler_Debug E$:/Education/UniversityYears/4$ year/first$ semester/Compiler/Assignments/AssginmentsSolutions/JavaCompiler/lexical_analyzer.cpp || cmake_object_order_depends_target_JavaCompiler
-  DEP_FILE = CMakeFiles\JavaCompiler.dir\lexical_analyzer.cpp.obj.d
+build CMakeFiles/JavaCompiler.dir/LexicalAnalyzer/lexical_analyzer.cpp.obj: CXX_COMPILER__JavaCompiler_Debug E$:/Education/UniversityYears/4$ year/first$ semester/Compiler/Assignments/AssginmentsSolutions/JavaCompiler/LexicalAnalyzer/lexical_analyzer.cpp || cmake_object_order_depends_target_JavaCompiler
+  DEP_FILE = CMakeFiles\JavaCompiler.dir\LexicalAnalyzer\lexical_analyzer.cpp.obj.d
   FLAGS = -g -std=gnu++14
   OBJECT_DIR = CMakeFiles\JavaCompiler.dir
-  OBJECT_FILE_DIR = CMakeFiles\JavaCompiler.dir
+  OBJECT_FILE_DIR = CMakeFiles\JavaCompiler.dir\LexicalAnalyzer
 
-build CMakeFiles/JavaCompiler.dir/lexicalTests.cpp.obj: CXX_COMPILER__JavaCompiler_Debug E$:/Education/UniversityYears/4$ year/first$ semester/Compiler/Assignments/AssginmentsSolutions/JavaCompiler/lexicalTests.cpp || cmake_object_order_depends_target_JavaCompiler
-  DEP_FILE = CMakeFiles\JavaCompiler.dir\lexicalTests.cpp.obj.d
+build CMakeFiles/JavaCompiler.dir/Tests/lexicalTests.cpp.obj: CXX_COMPILER__JavaCompiler_Debug E$:/Education/UniversityYears/4$ year/first$ semester/Compiler/Assignments/AssginmentsSolutions/JavaCompiler/Tests/lexicalTests.cpp || cmake_object_order_depends_target_JavaCompiler
+  DEP_FILE = CMakeFiles\JavaCompiler.dir\Tests\lexicalTests.cpp.obj.d
   FLAGS = -g -std=gnu++14
   OBJECT_DIR = CMakeFiles\JavaCompiler.dir
-  OBJECT_FILE_DIR = CMakeFiles\JavaCompiler.dir
+  OBJECT_FILE_DIR = CMakeFiles\JavaCompiler.dir\Tests
 
 
 # =============================================================================
@@ -93,7 +93,7 @@ build CMakeFiles/JavaCompiler.dir/lexicalTests.cpp.obj: CXX_COMPILER__JavaCompil
 #############################################
 # Link the executable JavaCompiler.exe
 
-build JavaCompiler.exe: CXX_EXECUTABLE_LINKER__JavaCompiler_Debug CMakeFiles/JavaCompiler.dir/main.cpp.obj CMakeFiles/JavaCompiler.dir/NFA/NFA.cpp.obj CMakeFiles/JavaCompiler.dir/DFA/DFA.cpp.obj CMakeFiles/JavaCompiler.dir/LexicalRulesParser/lexical_rules_generator.cpp.obj CMakeFiles/JavaCompiler.dir/lexical_analyzer.cpp.obj CMakeFiles/JavaCompiler.dir/lexicalTests.cpp.obj
+build JavaCompiler.exe: CXX_EXECUTABLE_LINKER__JavaCompiler_Debug CMakeFiles/JavaCompiler.dir/main.cpp.obj CMakeFiles/JavaCompiler.dir/LexicalAnalyzer/NFA/NFA.cpp.obj CMakeFiles/JavaCompiler.dir/LexicalAnalyzer/DFA/DFA.cpp.obj CMakeFiles/JavaCompiler.dir/LexicalAnalyzer/LexicalRulesParser/lexical_rules_generator.cpp.obj CMakeFiles/JavaCompiler.dir/LexicalAnalyzer/lexical_analyzer.cpp.obj CMakeFiles/JavaCompiler.dir/Tests/lexicalTests.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\JavaCompiler.dir
