@@ -57,6 +57,14 @@ build CMakeFiles/JavaCompiler.dir/main.cpp.obj: CXX_COMPILER__JavaCompiler_Debug
   TARGET_COMPILE_PDB = CMakeFiles\JavaCompiler.dir\
   TARGET_PDB = JavaCompiler.pdb
 
+build CMakeFiles/JavaCompiler.dir/NFA/NFA.cpp.obj: CXX_COMPILER__JavaCompiler_Debug E$:/Education/UniversityYears/4$ year/first$ semester/Compiler/Assignments/AssginmentsSolutions/JavaCompiler/NFA/NFA.cpp || cmake_object_order_depends_target_JavaCompiler
+  DEP_FILE = CMakeFiles\JavaCompiler.dir\NFA\NFA.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  OBJECT_DIR = CMakeFiles\JavaCompiler.dir
+  OBJECT_FILE_DIR = CMakeFiles\JavaCompiler.dir\NFA
+  TARGET_COMPILE_PDB = CMakeFiles\JavaCompiler.dir\
+  TARGET_PDB = JavaCompiler.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target JavaCompiler
@@ -65,7 +73,7 @@ build CMakeFiles/JavaCompiler.dir/main.cpp.obj: CXX_COMPILER__JavaCompiler_Debug
 #############################################
 # Link the executable JavaCompiler.exe
 
-build JavaCompiler.exe: CXX_EXECUTABLE_LINKER__JavaCompiler_Debug CMakeFiles/JavaCompiler.dir/main.cpp.obj
+build JavaCompiler.exe: CXX_EXECUTABLE_LINKER__JavaCompiler_Debug CMakeFiles/JavaCompiler.dir/main.cpp.obj CMakeFiles/JavaCompiler.dir/NFA/NFA.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\JavaCompiler.dir
