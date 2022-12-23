@@ -85,6 +85,24 @@ build CMakeFiles/JavaCompiler.dir/Tests/lexicalTests.cpp.obj: CXX_COMPILER__Java
   OBJECT_DIR = CMakeFiles\JavaCompiler.dir
   OBJECT_FILE_DIR = CMakeFiles\JavaCompiler.dir\Tests
 
+build CMakeFiles/JavaCompiler.dir/Parser/ProductionGenerator/production_generator.cpp.obj: CXX_COMPILER__JavaCompiler_Debug E$:/Education/UniversityYears/4$ year/first$ semester/Compiler/Assignments/AssginmentsSolutions/JavaCompiler/Parser/ProductionGenerator/production_generator.cpp || cmake_object_order_depends_target_JavaCompiler
+  DEP_FILE = CMakeFiles\JavaCompiler.dir\Parser\ProductionGenerator\production_generator.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  OBJECT_DIR = CMakeFiles\JavaCompiler.dir
+  OBJECT_FILE_DIR = CMakeFiles\JavaCompiler.dir\Parser\ProductionGenerator
+
+build CMakeFiles/JavaCompiler.dir/Parser/parser_token.cpp.obj: CXX_COMPILER__JavaCompiler_Debug E$:/Education/UniversityYears/4$ year/first$ semester/Compiler/Assignments/AssginmentsSolutions/JavaCompiler/Parser/parser_token.cpp || cmake_object_order_depends_target_JavaCompiler
+  DEP_FILE = CMakeFiles\JavaCompiler.dir\Parser\parser_token.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  OBJECT_DIR = CMakeFiles\JavaCompiler.dir
+  OBJECT_FILE_DIR = CMakeFiles\JavaCompiler.dir\Parser
+
+build CMakeFiles/JavaCompiler.dir/Parser/production_rule.cpp.obj: CXX_COMPILER__JavaCompiler_Debug E$:/Education/UniversityYears/4$ year/first$ semester/Compiler/Assignments/AssginmentsSolutions/JavaCompiler/Parser/production_rule.cpp || cmake_object_order_depends_target_JavaCompiler
+  DEP_FILE = CMakeFiles\JavaCompiler.dir\Parser\production_rule.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  OBJECT_DIR = CMakeFiles\JavaCompiler.dir
+  OBJECT_FILE_DIR = CMakeFiles\JavaCompiler.dir\Parser
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target JavaCompiler
@@ -93,7 +111,7 @@ build CMakeFiles/JavaCompiler.dir/Tests/lexicalTests.cpp.obj: CXX_COMPILER__Java
 #############################################
 # Link the executable JavaCompiler.exe
 
-build JavaCompiler.exe: CXX_EXECUTABLE_LINKER__JavaCompiler_Debug CMakeFiles/JavaCompiler.dir/main.cpp.obj CMakeFiles/JavaCompiler.dir/LexicalAnalyzer/NFA/NFA.cpp.obj CMakeFiles/JavaCompiler.dir/LexicalAnalyzer/DFA/DFA.cpp.obj CMakeFiles/JavaCompiler.dir/LexicalAnalyzer/LexicalRulesParser/lexical_rules_generator.cpp.obj CMakeFiles/JavaCompiler.dir/LexicalAnalyzer/lexical_analyzer.cpp.obj CMakeFiles/JavaCompiler.dir/Tests/lexicalTests.cpp.obj
+build JavaCompiler.exe: CXX_EXECUTABLE_LINKER__JavaCompiler_Debug CMakeFiles/JavaCompiler.dir/main.cpp.obj CMakeFiles/JavaCompiler.dir/LexicalAnalyzer/NFA/NFA.cpp.obj CMakeFiles/JavaCompiler.dir/LexicalAnalyzer/DFA/DFA.cpp.obj CMakeFiles/JavaCompiler.dir/LexicalAnalyzer/LexicalRulesParser/lexical_rules_generator.cpp.obj CMakeFiles/JavaCompiler.dir/LexicalAnalyzer/lexical_analyzer.cpp.obj CMakeFiles/JavaCompiler.dir/Tests/lexicalTests.cpp.obj CMakeFiles/JavaCompiler.dir/Parser/ProductionGenerator/production_generator.cpp.obj CMakeFiles/JavaCompiler.dir/Parser/parser_token.cpp.obj CMakeFiles/JavaCompiler.dir/Parser/production_rule.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\JavaCompiler.dir

@@ -4,10 +4,10 @@
 #include "LexicalAnalyzer/LexicalRulesParser/lexical_rules_generator.h"
 #include "LexicalAnalyzer/lexical_analyzer.h"
 #include "LexicalAnalyzer/DFA/DFA.h"
+#include "Parser/ProductionGenerator/production_generator.h"
 
 using namespace std;
-
-int main() {
+void lexical(){
     // rule parsing
     pair<vector<pair<string,int>>, vector<queue<pair<string,bool>>>> REs  =
             LexicalRulesGenerator("..\\lexical_rules.txt").generateNFAs();
@@ -26,6 +26,24 @@ int main() {
             outputFile << nameAndValue.first<<endl;
     }
     outputFile.close();
-
-    return 0;
 }
+int main() {
+    ProductionGenerator productionGenerator = ProductionGenerator("..\\CFG.txt");
+    vector<ProductionRule> productionRules = productionGenerator.getProductions();
+    unordered_set<string> terminals = productionGenerator.getSetOfTerminals(productionRules);
+    return 0;
+
+}
+
+/**
+    for(auto &productionRule: productionRules){
+        cout<< productionRule.name<<" : \n";
+        for(auto & rule: productionRule.rules){
+            for(auto &token : rule)
+                cout<< ParserToken::typeName(token.type) << "," << token.name<<" # ";
+            cout<<endl;
+        }
+        cout<<"----------------------------"<<endl;
+    }
+
+ **/
