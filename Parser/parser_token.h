@@ -7,7 +7,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class ParserToken {
+class ParserToken{
 public:
     enum Type{
         Terminal,
@@ -17,8 +17,22 @@ public:
     Type type;
     string name;
     ParserToken(Type type,string name);
-    static string typeName(int type);
+    bool operator==(const ParserToken &a) const {
+        return name == a.name && type == a.type;
+    }
+    /**static string typeName(int type);**/
 };
 
+namespace std
+{
+    template<>
+    struct hash<ParserToken>
+    {
+        size_t
+        operator()(const ParserToken &parserToken) const noexcept {
+            return hash<string>()(parserToken.name);
+        }
+    };
+}
 
 #endif //JAVACOMPILER_PARSER_TOKEN_H

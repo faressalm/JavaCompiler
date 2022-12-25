@@ -5,6 +5,7 @@
 #include "LexicalAnalyzer/lexical_analyzer.h"
 #include "LexicalAnalyzer/DFA/DFA.h"
 #include "Parser/ProductionGenerator/production_generator.h"
+#include "Parser/ParsingTable/parser_utils.h"
 
 using namespace std;
 void lexical(){
@@ -31,6 +32,8 @@ int main() {
     ProductionGenerator productionGenerator = ProductionGenerator("..\\CFG.txt");
     vector<ProductionRule> productionRules = productionGenerator.getProductions();
     unordered_set<string> terminals = productionGenerator.getSetOfTerminals(productionRules);
+    ParserUtils parserUtils = ParserUtils(productionRules);
+
     return 0;
 
 }
