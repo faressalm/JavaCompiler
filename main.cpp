@@ -33,7 +33,6 @@ int main() {
     vector<ProductionRule> productionRules = productionGenerator.getProductions();
     unordered_set<string> terminals = productionGenerator.getSetOfTerminals(productionRules);
     ParserUtils parserUtils = ParserUtils(productionRules);
-
     return 0;
 
 }

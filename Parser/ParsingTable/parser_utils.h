@@ -4,6 +4,7 @@
 #define PARSER_UTILS_H
 
 #include "../production_rule.h"
+const ParserToken eps_symbol = ParserToken(ParserToken::Type::Epsilon , "\\L");
 
 class ParserUtils{
 public:
@@ -23,10 +24,13 @@ public:
     vector<ParserToken> get_first_production(ParserToken& non_terminal, ParserToken& first);
 
     unordered_set<ParserToken> get_follow(ParserToken& symbol);
+    unordered_map<ParserToken, unordered_set<ParserToken>> first ;
 private:
     unordered_map<ParserToken , ProductionRule > grammar;
-    unordered_map<ParserToken, unordered_set<ParserToken>> first ;
+
     unordered_map<ParserToken, unordered_set<ParserToken>> follow ;
     void run_first(const ParserToken& non_terminal,const ProductionRule& prods);
+    void apply_follow_rule_two();
+    void apply_follow_rule_three();
 };
 #endif //PARSER_UTILS_H
