@@ -17,6 +17,7 @@ vector<ProductionRule> ProductionGenerator::getProductions() {
     }
     return finalProductions(getRawProductions(buffer));
 }
+
 unordered_set<string> ProductionGenerator::getSetOfTerminals(vector<ProductionRule> productionRules){
     unordered_set<string> terminals;
     for(auto &productionRule: productionRules)
@@ -26,6 +27,7 @@ unordered_set<string> ProductionGenerator::getSetOfTerminals(vector<ProductionRu
                     terminals.insert(token.name);
     return terminals;
 }
+
 vector<string> ProductionGenerator::getRawProductions(string buffer){
     vector<int> startIndexes;
     for(int i=0;i<buffer.size();i++)
@@ -109,4 +111,70 @@ vector<ParserToken> ProductionGenerator::getTokens(string production){
         tokens.push_back(ParserToken(tokenType, production.substr(start+terminalTrunc, i-start - int(terminalTrunc) *2)));
     }
     return tokens;
+}
+
+vector<ProductionRule> ProductionGenerator::leftFactor(vector<ProductionRule> productionRules, ProductionRule start) {
+    for (int i = 0; i < productionRules.size(); i++) {
+        vector<ProductionRule> newProductionRule = leftFactorOneRule(productionRules[i]);
+        if (newProductionRule.size() == 1)
+            continue;
+
+        productionRules.erase(productionRules.begin() + i);
+        for (auto & newRule : newProductionRule)
+            productionRules.push_back(newRule);
+
+        i = -1;
+    }
+
+    for (int i = 0; i < productionRules.size(); ++i)
+        if (productionRules[i].name == start.name) {
+            start = productionRules[i];
+            productionRules.erase(productionRules.begin() + i);
+            break;
+        }
+
+    vector<ProductionRule> newProductionRules;
+    newProductionRules.push_back(start);
+    for (const auto & productionRule : productionRules) {
+        newProductionRules.push_back(productionRule);
+    }
+
+    return productionRules;
+}
+
+vector<ProductionRule> ProductionGenerator::leftFactorOneRule(ProductionRule productionRule) {
+    vector<vector<ParserToken>> productions = productionRule.rules;
+    int counter = 1;
+    vector<ProductionRule> newProductionRule;
+    for (int i = 0; i < productions.size(); i++) {
+        vector<vector<ParserToken>> match;
+        int minShouldMatched = INT_MAX;
+        for (int j = i + 1; j < productions.size(); j++) {
+            int maxMatched = maxMatchTokens(productions[i], productions[j]);
+            if (maxMatched == 0)
+                continue;
+
+            if (minShouldMatched > maxMatched)
+                minShouldMatched = maxMatched;
+
+            match.push_back(productions[j]);
+            productions.erase(productions.begin() + j);
+            j = i;
+        }
+
+        match.push_back(productions[i]);
+        if (match.size() == 1)
+            continue;
+
+        //To be continued
+    }
+}
+
+int ProductionGenerator::maxMatchTokens(vector<ParserToken> a, vector<ParserToken> b) {
+    int i = 0;
+    for (; i < min(a.size(), b.size()); i++)
+        if (a[i].name != b[i].name)
+            break;
+
+    return i;
 }

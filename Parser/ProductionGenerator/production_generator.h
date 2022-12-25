@@ -15,6 +15,8 @@ public:
     ProductionGenerator(string productionsPath);
     vector<ProductionRule> getProductions();
     unordered_set<string> getSetOfTerminals(vector<ProductionRule> productionRules);
+
+    vector<ProductionRule> leftFactor(vector<ProductionRule> productionRules, ProductionRule start);
 private:
     const unordered_set<char> skipCharacters = {' ', '\t', '\n'};
     vector<string> getRawProductions(string buffer);
@@ -24,6 +26,8 @@ private:
     vector<string> getRawORProductions(string combineProduction);
     vector<ParserToken> getTokens(string production);
 
+    vector<ProductionRule> leftFactorOneRule(ProductionRule productionRule);
+    int maxMatchTokens(vector<ParserToken> a, vector<ParserToken> b);
 };
 
 
