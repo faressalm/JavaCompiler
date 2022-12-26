@@ -17,6 +17,7 @@ public:
     unordered_set<string> getSetOfTerminals(vector<ProductionRule> productionRules);
 
     vector<ProductionRule> leftFactor(vector<ProductionRule> productionRules, ProductionRule start);
+    vector<ProductionRule> eliminateLR(vector<ProductionRule> productionRules, ProductionRule start);
 private:
     const unordered_set<char> skipCharacters = {' ', '\t', '\n'};
     vector<string> getRawProductions(string buffer);
@@ -28,6 +29,9 @@ private:
 
     vector<ProductionRule> leftFactorOneRule(ProductionRule productionRule);
     int maxMatchTokens(vector<ParserToken> a, vector<ParserToken> b);
+    vector<ProductionRule> eliminateLROneRule(ProductionRule productionRule);
+    bool isLeftRecursion(ProductionRule productionRule);
+    pair<vector<vector<ParserToken>>, vector<vector<ParserToken>>> getNonLRandLR(ProductionRule productionRule);
 };
 
 

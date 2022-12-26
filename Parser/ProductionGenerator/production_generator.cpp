@@ -120,7 +120,7 @@ vector<ProductionRule> ProductionGenerator::leftFactor(vector<ProductionRule> pr
             continue;
 
         productionRules.erase(productionRules.begin() + i);
-        for (auto & newRule : newProductionRule)
+        for (auto newRule : newProductionRule)
             productionRules.push_back(newRule);
 
         i = -1;
@@ -135,16 +135,15 @@ vector<ProductionRule> ProductionGenerator::leftFactor(vector<ProductionRule> pr
 
     vector<ProductionRule> newProductionRules;
     newProductionRules.push_back(start);
-    for (const auto & productionRule : productionRules) {
+    for (auto productionRule : productionRules)
         newProductionRules.push_back(productionRule);
-    }
 
-    return productionRules;
+    return newProductionRules;
 }
 
 vector<ProductionRule> ProductionGenerator::leftFactorOneRule(ProductionRule productionRule) {
     vector<vector<ParserToken>> productions = productionRule.rules;
-    int counter = 1;
+    int counter = 1;    // Number of new productions
     vector<ProductionRule> newProductionRule;
     for (int i = 0; i < productions.size(); i++) {
         vector<vector<ParserToken>> match;
@@ -166,8 +165,36 @@ vector<ProductionRule> ProductionGenerator::leftFactorOneRule(ProductionRule pro
         if (match.size() == 1)
             continue;
 
-        //To be continued
+        vector<ParserToken> common;
+        for (int j = 0; j < minShouldMatched; j++)
+            common.push_back(productions[i][j]);
+
+        string newName = productionRule.name + "_DASH";
+        common.push_back(ParserToken(ParserToken::NonTerminal, newName));
+        productions.erase(productions.begin() + i);
+        productions.push_back(common);
+        vector<vector<ParserToken>> newMatch;
+        for (auto temp : match) {
+            for (int k = 0; k < minShouldMatched; k++)
+                temp.erase(temp.begin());
+
+            if (temp.empty()) {
+                vector<ParserToken> eps;
+                eps.push_back(ParserToken(ParserToken::Epsilon, "\\L"));
+                newMatch.push_back(eps);
+            } else {
+                newMatch.push_back(temp);
+            }
+        }
+
+        newProductionRule.push_back(ProductionRule(newName, newMatch));
+        counter++;
+        i = -1;
     }
+
+    newProductionRule.push_back(ProductionRule(productionRule.name, productions));
+
+    return newProductionRule;
 }
 
 int ProductionGenerator::maxMatchTokens(vector<ParserToken> a, vector<ParserToken> b) {
@@ -177,4 +204,108 @@ int ProductionGenerator::maxMatchTokens(vector<ParserToken> a, vector<ParserToke
             break;
 
     return i;
+}
+
+vector<ProductionRule> ProductionGenerator::eliminateLR(vector<ProductionRule> productionRules, ProductionRule start) {
+    for (int i = 0; i < productionRules.size(); i++) {
+        vector<ProductionRule> newProductionRule = eliminateLROneRule(productionRules[i]);
+        if (newProductionRule.size() == 1)
+            continue;
+
+        productionRules.erase(productionRules.begin() + i);
+        for (auto newRule : newProductionRule)
+            productionRules.push_back(newRule);
+
+        i = -1;
+    }
+
+    for (int i = 0; i < productionRules.size(); ++i)
+        if (productionRules[i].name == start.name) {
+            start = productionRules[i];
+            productionRules.erase(productionRules.begin() + i);
+            break;
+        }
+
+    vector<ProductionRule> newProductionRules;
+    newProductionRules.push_back(start);
+    for (auto productionRule : productionRules)
+        newProductionRules.push_back(productionRule);
+
+    return newProductionRules;
+}
+
+bool epsilon = false;
+vector<ProductionRule> ProductionGenerator::eliminateLROneRule(ProductionRule productionRule) {
+    vector<ProductionRule> newProductionRules;
+    if (!isLeftRecursion(productionRule)) {
+        newProductionRules.push_back(productionRule);
+        return newProductionRules;
+    }
+
+    string name = productionRule.name;
+    vector<vector<ParserToken>> productions = productionRule.rules;
+    epsilon = false;
+    pair<vector<vector<ParserToken>>, vector<vector<ParserToken>>> nonLRandLRProductions = getNonLRandLR(productionRule);
+    vector<vector<ParserToken>> nonLRProductions = nonLRandLRProductions.first;
+    vector<vector<ParserToken>> LRProductions = nonLRandLRProductions.second;
+    string newName = name + "_DASH";
+    ParserToken newToken = ParserToken(ParserToken::NonTerminal, newName);
+    vector<vector<ParserToken>> newNonTerminal;
+    for (auto LRProduction : LRProductions) {
+        LRProduction.push_back(newToken);
+        newNonTerminal.push_back(LRProduction);
+    }
+
+    if (!nonLRProductions.empty() || epsilon) {
+        vector<ParserToken> epsilonToken;
+        epsilonToken.push_back(ParserToken(ParserToken::Epsilon, "\\L"));
+        newNonTerminal.push_back(epsilonToken);
+    }
+
+    productions.clear();
+    for (auto nonLRProduction : nonLRProductions) {
+        nonLRProduction.push_back(newToken);
+        productions.push_back(nonLRProduction);
+    }
+
+    if (nonLRProductions.empty()) {
+        vector<ParserToken> temp;
+        temp.push_back(newToken);
+        productions.push_back(temp);
+    }
+
+    newProductionRules.push_back(ProductionRule(productionRule.name, productions));
+    newProductionRules.push_back(ProductionRule(newName, newNonTerminal));
+
+    return newProductionRules;
+}
+
+bool ProductionGenerator::isLeftRecursion(ProductionRule productionRule) {
+    string name = productionRule.name;
+    vector<vector<ParserToken>> productions = productionRule.rules;
+    for (auto production : productions)
+        if (production[0].name == name)
+            return true;
+
+    return false;
+}
+
+pair<vector<vector<ParserToken>>, vector<vector<ParserToken>>>
+ProductionGenerator::getNonLRandLR(ProductionRule productionRule) {
+    string name = productionRule.name;
+    vector<vector<ParserToken>> productions = productionRule.rules;
+    vector<vector<ParserToken>> nonLR, LR;
+    for (auto production : productions) {
+        if (production[0].name != name) {
+            if (production[0].name != "\\L")
+                nonLR.push_back(production);
+            else
+                epsilon = true;
+        } else {
+            production.erase(production.begin());
+            LR.push_back(production);
+        }
+    }
+
+    return make_pair(nonLR, LR);
 }

@@ -29,10 +29,12 @@ void lexical(){
     outputFile.close();
 }
 int main() {
-    ProductionGenerator productionGenerator = ProductionGenerator("..\\CFG.txt");
+    ProductionGenerator productionGenerator = ProductionGenerator("../CFG.txt");
     vector<ProductionRule> productionRules = productionGenerator.getProductions();
     unordered_set<string> terminals = productionGenerator.getSetOfTerminals(productionRules);
-    ParserUtils parserUtils = ParserUtils(productionRules);
+    productionRules = productionGenerator.leftFactor(productionRules, productionRules[0]);
+    productionRules = productionGenerator.eliminateLR(productionRules, productionRules[0]);
+    //ParserUtils parserUtils = ParserUtils(productionRules);
     for(auto &productionRule: productionRules){
         cout<< productionRule.name<<" : \n";
         for(auto & rule: productionRule.rules){
