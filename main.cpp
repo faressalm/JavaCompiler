@@ -33,6 +33,15 @@ int main() {
     vector<ProductionRule> productionRules = productionGenerator.getProductions();
     unordered_set<string> terminals = productionGenerator.getSetOfTerminals(productionRules);
     ParserUtils parserUtils = ParserUtils(productionRules);
+    for(auto &productionRule: productionRules){
+        cout<< productionRule.name<<" : \n";
+        for(auto & rule: productionRule.rules){
+            for(auto &token : rule)
+                cout<< ParserToken::typeName(token.type) << "," << token.name<<" # ";
+            cout<<endl;
+        }
+        cout<<"----------------------------"<<endl;
+    }
     return 0;
 
 }

@@ -20,7 +20,7 @@ public:
     bool operator==(const ParserToken &a) const {
         return name == a.name && type == a.type;
     }
-    /**static string typeName(int type);**/
+    static string typeName(int type);
 };
 
 namespace std
