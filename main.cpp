@@ -32,8 +32,8 @@ int main() {
     ProductionGenerator productionGenerator = ProductionGenerator("../CFG.txt");
     vector<ProductionRule> productionRules = productionGenerator.getProductions();
     unordered_set<string> terminals = productionGenerator.getSetOfTerminals(productionRules);
-    productionRules = productionGenerator.leftFactor(productionRules, productionRules[0]);
     productionRules = productionGenerator.eliminateLR(productionRules, productionRules[0]);
+    productionRules = productionGenerator.leftFactor(productionRules, productionRules[0]);
     //ParserUtils parserUtils = ParserUtils(productionRules);
     for(auto &productionRule: productionRules){
         cout<< productionRule.name<<" : \n";

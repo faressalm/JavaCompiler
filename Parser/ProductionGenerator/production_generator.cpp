@@ -143,7 +143,6 @@ vector<ProductionRule> ProductionGenerator::leftFactor(vector<ProductionRule> pr
 
 vector<ProductionRule> ProductionGenerator::leftFactorOneRule(ProductionRule productionRule) {
     vector<vector<ParserToken>> productions = productionRule.rules;
-    int counter = 1;    // Number of new productions
     vector<ProductionRule> newProductionRule;
     for (int i = 0; i < productions.size(); i++) {
         vector<vector<ParserToken>> match;
@@ -188,7 +187,6 @@ vector<ProductionRule> ProductionGenerator::leftFactorOneRule(ProductionRule pro
         }
 
         newProductionRule.push_back(ProductionRule(newName, newMatch));
-        counter++;
         i = -1;
     }
 
@@ -208,18 +206,43 @@ int ProductionGenerator::maxMatchTokens(vector<ParserToken> a, vector<ParserToke
 
 vector<ProductionRule> ProductionGenerator::eliminateLR(vector<ProductionRule> productionRules, ProductionRule start) {
     for (int i = 0; i < productionRules.size(); i++) {
+        vector<vector<ParserToken>> productions = productionRules[i].rules;
+        for (int j = 0; j < i; j++) {
+            for (int k = 0; k < productions.size(); k++) {
+                if (productions[k][0].name == productionRules[j].name) {
+                    productions[k].erase(productions[k].begin());
+                    vector<vector<ParserToken>> jProductions = productionRules[j].rules;
+                    for (auto& jProduction : jProductions)
+                        for (auto m : productions[k])
+                            jProduction.push_back(m);
+
+                    productions.erase(productions.begin() + k);
+                    for (auto jProduction : jProductions)
+                        productions.push_back(jProduction);
+                }
+            }
+        }
+
+        productionRules[i] = ProductionRule(productionRules[i].name, productions);
         vector<ProductionRule> newProductionRule = eliminateLROneRule(productionRules[i]);
         if (newProductionRule.size() == 1)
             continue;
 
-        productionRules.erase(productionRules.begin() + i);
-        for (auto newRule : newProductionRule)
-            productionRules.push_back(newRule);
+        vector<ProductionRule> temp;
+        for (int j = 0; j < i; j++)
+            temp.push_back(productionRules[j]);
 
+        for (auto newRule : newProductionRule)
+            temp.push_back(newRule);
+
+        for (int j = i + 1; j < productionRules.size(); j++)
+            temp.push_back(productionRules[j]);
+
+        productionRules = temp;
         i = -1;
     }
 
-    for (int i = 0; i < productionRules.size(); ++i)
+    for (int i = 0; i < productionRules.size(); i++)
         if (productionRules[i].name == start.name) {
             start = productionRules[i];
             productionRules.erase(productionRules.begin() + i);
