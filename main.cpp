@@ -34,7 +34,7 @@ int main() {
     unordered_set<string> terminals = productionGenerator.getSetOfTerminals(productionRules);
     productionRules = productionGenerator.eliminateLR(productionRules, productionRules[0]);
     productionRules = productionGenerator.leftFactor(productionRules, productionRules[0]);
-    //ParserUtils parserUtils = ParserUtils(productionRules);
+    ParserUtils parserUtils = ParserUtils(productionRules);
     for(auto &productionRule: productionRules){
         cout<< productionRule.name<<" : \n";
         for(auto & rule: productionRule.rules){
