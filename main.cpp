@@ -35,7 +35,15 @@ int main() {
     productionRules = productionGenerator.eliminateLR(productionRules, productionRules[0]);
     productionRules = productionGenerator.leftFactor(productionRules, productionRules[0]);
     ParserUtils parserUtils = ParserUtils(productionRules);
-    for(auto &productionRule: productionRules){
+    parserUtils.create_table();
+    parserUtils.print_parsing_table("../Parsing_Table.csv", terminals);
+    ParserToken nonterm = ParserToken(ParserToken::Type::NonTerminal, "EXPRESSION");
+    ParserToken term = ParserToken(ParserToken::Type::Terminal, "**");
+    //auto a = parserUtils.get_entry(nonterm, term);
+    for(auto a : terminals) {
+        cout << a << " ";
+    }
+/*    for(auto &productionRule: productionRules){
         cout<< productionRule.name<<" : \n";
         for(auto & rule: productionRule.rules){
             for(auto &token : rule)
@@ -43,7 +51,7 @@ int main() {
             cout<<endl;
         }
         cout<<"----------------------------"<<endl;
-    }
+    }*/
     return 0;
 
 }

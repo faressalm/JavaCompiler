@@ -3,7 +3,8 @@
 #include "../production_rule.h"
 ParserUtils::ParserUtils(vector<ProductionRule> &rules) {
   for(ProductionRule r : rules){
-      ParserToken symbol = ParserToken( ParserToken::Type::NonTerminal, r.name)  ;
+      ParserToken symbol = ParserToken( ParserToken::Type::NonTerminal, r.name);
+      nonTerminalsList.push_back(symbol);
       this->grammar.insert({symbol, r});
   }
   ParserToken start_symbol = ParserToken(ParserToken::Type::NonTerminal , rules[0].name );
@@ -147,4 +148,88 @@ void ParserUtils::run_first(const ParserToken &non_terminal, const ProductionRul
   if(!has_eps){
       curr_first.erase(eps_symbol);
   }
+}
+//unordered_map<ParserToken nonterminal, unordered_map<ParserToken terminal, pair<string type, vector<ParserToken> production>>>
+void ParserUtils::create_table(){
+    vector<ParserToken> epsProd = {eps_symbol};
+
+    for(auto nonTerm: this->nonTerminalsList) {
+        unordered_set<ParserToken> firstSet = get_first(nonTerm);
+        unordered_set<ParserToken> followSet = get_follow(nonTerm);
+        unordered_map<ParserToken, pair<string, vector<ParserToken>>> tableRow;
+        bool hasEpsilon = false;
+
+        for (auto itr : firstSet) {
+            if (itr.type == ParserToken::Type::Epsilon) {
+                hasEpsilon = true;
+                continue;
+            }
+            tableRow.insert({ itr, make_pair("production", get_first_production(nonTerm, itr))});
+        }
+
+        for (auto itr : followSet) {
+            if (hasEpsilon) {
+                tableRow.insert({ itr, make_pair("production", epsProd)});
+            }
+            else {
+                tableRow.insert({itr, {"sync", {}}});
+            }
+        }
+        this->parsingTable.insert({nonTerm, tableRow});
+    }
+    //cout << "a" <<"\n";
+}
+
+pair<string, vector<ParserToken>> ParserUtils::get_entry(ParserToken& non_terminal, ParserToken& terminal) {
+    unordered_map<ParserToken, pair<string, vector<ParserToken>>> row = this->parsingTable.at(non_terminal);
+    if (row.find(terminal) == row.end()) { //empty entry
+        return {"error",{}};
+    }
+    return row.at(terminal);
+}
+
+void ParserUtils::print_parsing_table(string path, unordered_set<string> terminals) {
+    ofstream myFile;
+    vector<string> terminalsVector;
+
+    for (auto itr : terminals) {
+        terminalsVector.push_back(itr);
+    }
+    terminalsVector.push_back("$");
+
+    myFile.open(path + "1");
+    myFile << "non-terminal/terminal";
+    for (auto itr : terminalsVector) {
+        if (itr == ",") {
+            myFile << ",\",\"";
+        }
+        else if (itr == ";") {
+            myFile << ",\";\"";
+        }
+        else {
+            myFile << "," << (itr);
+        }
+    }
+    myFile << "\n";
+
+    for (auto itr : this->parsingTable) {
+        myFile << itr.first.name << "," ;
+        for (auto term :terminalsVector) {
+            ParserToken temp1 = itr.first;
+            ParserToken temp2 = ParserToken(ParserToken::Type::Terminal, term);
+            auto entry = get_entry(temp1, temp2);
+            myFile << entry.first << ",";
+        }
+        myFile << "\n";
+    }
+
+    myFile.close();
+}
+
+string ParserUtils::get_production_name(vector<ParserToken> vec) {
+    string str = "";
+    for (auto itr : vec) {
+        str.append(itr.name);
+    }
+    return str;
 }
