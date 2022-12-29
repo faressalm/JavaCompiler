@@ -11,3 +11,12 @@ string ParserToken::typeName(int type) {
     return typeNames[type];
 }
 
+bool ParserToken::isTerminal(){
+    return ParserToken::Terminal == type;
+}
+bool ParserToken::isNonTerminal(){
+    return ParserToken::NonTerminal == type;
+}
+bool ParserToken::isEpsilon(){
+    return ParserToken::Epsilon == type;
+}

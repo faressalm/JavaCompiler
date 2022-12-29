@@ -16,6 +16,7 @@ ParserUtils::ParserUtils(vector<ProductionRule> &rules) {
   this->follow.at(start_symbol).insert(end_symbol); // rule 1
   this->apply_follow_rule_two();
   this->apply_follow_rule_three();
+  create_table();
 }
 
 
@@ -230,6 +231,7 @@ string ParserUtils::get_production_name(vector<ParserToken> vec) {
     string str = "";
     for (auto itr : vec) {
         str.append(itr.name);
+        str.append(" ");
     }
     return str;
 }

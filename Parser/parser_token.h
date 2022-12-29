@@ -21,6 +21,9 @@ public:
         return name == a.name && type == a.type;
     }
     static string typeName(int type);
+    bool isTerminal();
+    bool isNonTerminal();
+    bool isEpsilon();
 };
 
 namespace std

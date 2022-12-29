@@ -31,13 +31,13 @@ public:
     pair<string, vector<ParserToken>> get_entry(ParserToken& non_terminal, ParserToken& terminal);
 
     void print_parsing_table(string path, unordered_set<string> terminals);
+    string get_production_name(vector<ParserToken> vec);
 private:
     unordered_map<ParserToken , ProductionRule > grammar;
     unordered_map<ParserToken, unordered_set<ParserToken>> first ;
     unordered_map<ParserToken, unordered_set<ParserToken>> follow ;
     vector<ParserToken> nonTerminalsList;
     table parsingTable;
-    string get_production_name(vector<ParserToken> vec);
     void run_first(const ParserToken& non_terminal,const ProductionRule& prods);
     void apply_follow_rule_two();
     void apply_follow_rule_three();

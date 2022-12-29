@@ -9,7 +9,7 @@
 using namespace std;
 class LexicalAnalyzer{
 private:
-    const unordered_set<char> splitCharacters = {' ', '\t', '\n'};
+    unordered_set<char> splitCharacters = {' ', '\t', '\n'};
     DFA_State startState;
     DFA dfa;
     ifstream inputFile;
@@ -23,8 +23,10 @@ private:
 
 public:
     bool fileClosed = false;
-    LexicalAnalyzer(string inputProgramPath,DFA dfa,DFA_State startState);
+    explicit LexicalAnalyzer(string inputProgramPath,DFA dfa,DFA_State startState);
     // token name, token value
     pair<string,string> getNextToken();
+
+
 };
 #endif //JAVACOMPILER_LEXICAL_ANALYZER_H
