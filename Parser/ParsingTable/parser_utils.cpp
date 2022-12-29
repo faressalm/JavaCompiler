@@ -198,7 +198,7 @@ void ParserUtils::print_parsing_table(string path, unordered_set<string> termina
     }
     terminalsVector.push_back("$");
 
-    myFile.open(path + "1");
+    myFile.open(path);
     myFile << "non-terminal/terminal";
     for (auto itr : terminalsVector) {
         if (itr == ",") {
@@ -219,7 +219,15 @@ void ParserUtils::print_parsing_table(string path, unordered_set<string> termina
             ParserToken temp1 = itr.first;
             ParserToken temp2 = ParserToken(ParserToken::Type::Terminal, term);
             auto entry = get_entry(temp1, temp2);
-            myFile << entry.first << ",";
+            if (entry.first == "error") {
+                myFile << ",";
+            }
+            else if(entry.first == "sync") {
+                myFile << entry.first << ",";
+            }
+            else {
+                myFile << get_production_name(entry.second, true) << ",";
+            }
         }
         myFile << "\n";
     }
@@ -227,11 +235,20 @@ void ParserUtils::print_parsing_table(string path, unordered_set<string> termina
     myFile.close();
 }
 
-string ParserUtils::get_production_name(vector<ParserToken> vec) {
-    string str = "";
+string ParserUtils::get_production_name(vector<ParserToken> vec, bool csv) {
+    string str1 = "";
+    string str2 = "";
     for (auto itr : vec) {
-        str.append(itr.name);
-        str.append(" ");
+        if (itr.name == ",") {
+            str2 =  "COMMA";
+        }
+        else if (itr.name == ";") {
+            str2 = "SEMICOLON";
+        }
+        else {
+            str2 = itr.name;
+        }
+        str1.append((csv? str2 : itr.name)  + " ");
     }
-    return str;
+    return str1;
 }

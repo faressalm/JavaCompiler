@@ -86,3 +86,7 @@
 7378	11506	6940571414794080	JavaCompiler.exe	1483beece98b4b93
 10	5192	6940573796933885	CMakeFiles/JavaCompiler.dir/Parser/TopDownParser.cpp.obj	5e7dc0d7633ce1be
 5192	9724	6940573842252732	JavaCompiler.exe	1483beece98b4b93
+5	3205	6940582346447337	CMakeFiles/JavaCompiler.dir/main.cpp.obj	c78e3cd1a2c497aa
+10	4065	6940582355024399	CMakeFiles/JavaCompiler.dir/Parser/ParsingTable/parser_utils.cpp.obj	e95eadb4b303e9b3
+14	4289	6940582357248448	CMakeFiles/JavaCompiler.dir/Parser/TopDownParser.cpp.obj	5e7dc0d7633ce1be
+4289	9466	6940582408920309	JavaCompiler.exe	1483beece98b4b93

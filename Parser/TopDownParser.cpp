@@ -5,6 +5,7 @@
 #include "TopDownParser.h"
 
 TopDownParser::TopDownParser(ParserUtils &parserUtils, ParserToken startToken):parserUtils(parserUtils),startToken(startToken){}
+
 void TopDownParser::parse(){
     LexicalAnalyzer lexicalAnalyzer = lexical();
     ofstream outputFile("..\\parserOutput.txt", std::ofstream::out);
@@ -56,8 +57,8 @@ void TopDownParser::parse(){
                         parserTokens.push(parserEntry.second[i]);
                 }
                 cout<<"14"<<endl;
-                outputFile << parserUtils.get_production_name(parserEntry.second)<<endl;
-                cout << parserUtils.get_production_name(parserEntry.second)<< " "<< lexicalTokens.front().name<<endl;
+                outputFile << parserUtils.get_production_name(parserEntry.second,false)<<endl;
+                cout << parserUtils.get_production_name(parserEntry.second, false)<< " "<< lexicalTokens.front().name<<endl;
             }else if (parserEntry.first == "sync"){
                 cout<<"15"<<endl;
                 outputFile << "Sync: discard "<< topParserToken.name<<endl;
@@ -79,6 +80,7 @@ void TopDownParser::parse(){
     }
     outputFile.close();
 }
+
 LexicalAnalyzer TopDownParser::lexical(){
     // rule parsing
     pair<vector<pair<string,int>>, vector<queue<pair<string,bool>>>> REs  =
@@ -91,8 +93,4 @@ LexicalAnalyzer TopDownParser::lexical(){
     //parse program file
     cout << "Number of states after minimization: "<<dfa.states.size() <<endl<<"=========================================================="<<endl;
     return  LexicalAnalyzer("..\\testprogram.txt",dfa,dfa.states[0]);
-//    pair<string,string> nameAndValue;
-//    ofstream outputFile("..\\parserOutput.txt", std::ofstream::out);
-//
-//    outputFile.close();
 }

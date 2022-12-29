@@ -31,7 +31,7 @@ public:
     pair<string, vector<ParserToken>> get_entry(ParserToken& non_terminal, ParserToken& terminal);
 
     void print_parsing_table(string path, unordered_set<string> terminals);
-    string get_production_name(vector<ParserToken> vec);
+    string get_production_name(vector<ParserToken> vec, bool csv);
 private:
     unordered_map<ParserToken , ProductionRule > grammar;
     unordered_map<ParserToken, unordered_set<ParserToken>> first ;
