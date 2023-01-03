@@ -178,7 +178,6 @@ void ParserUtils::create_table(){
         }
         this->parsingTable.insert({nonTerm, tableRow});
     }
-    //cout << "a" <<"\n";
 }
 
 pair<string, vector<ParserToken>> ParserUtils::get_entry(ParserToken& non_terminal, ParserToken& terminal) {
