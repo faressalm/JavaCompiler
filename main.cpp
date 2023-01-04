@@ -4,28 +4,46 @@
 #include "LexicalAnalyzer/LexicalRulesParser/lexical_rules_generator.h"
 #include "LexicalAnalyzer/lexical_analyzer.h"
 #include "LexicalAnalyzer/DFA/DFA.h"
-
+#include "Parser/ProductionGenerator/production_generator.h"
+#include "Parser/ParsingTable/parser_utils.h"
+#include "Parser/TopDownParser.h"
 using namespace std;
-
+void printParsingTable(ProductionGenerator &productionGenerator, vector<ProductionRule> &productionRules, ParserUtils &parserUtils){
+    unordered_set<string> terminals = productionGenerator.getSetOfTerminals(productionRules);
+    parserUtils.print_parsing_table("../Parsing_Table.csv", terminals);
+    ParserToken nonterm = ParserToken(ParserToken::Type::NonTerminal, "EXPRESSION");
+    ParserToken term = ParserToken(ParserToken::Type::Terminal, "**");
+    auto a = parserUtils.get_entry(nonterm, term);
+}
 int main() {
-    // rule parsing
-    pair<vector<pair<string,int>>, vector<queue<pair<string,bool>>>> REs  =
-            LexicalRulesGenerator("..\\lexical_rules.txt").generateNFAs();
-    // get NFA
-    NFA startNFA =  NFA_builder().build(REs.second,REs.first);
-    //get DFA
-    DFA dfa = DFA_builder::build_dfa(startNFA);;
-    dfa.transition_table( "..\\Transition_Table.csv",startNFA.chars);
-    //parse program file
-    cout << "Number of states after minimization: "<<dfa.states.size() <<endl<<"=========================================================="<<endl;
-    LexicalAnalyzer lexicalAnalyzer = LexicalAnalyzer("..\\testprogram.txt",dfa,dfa.states[0]);
-    pair<string,string> nameAndValue;
-    ofstream outputFile("..\\lexicalOutput.txt", std::ofstream::out);
-    while(!lexicalAnalyzer.fileClosed){
-        if(!(nameAndValue = lexicalAnalyzer.getNextToken()).first.empty())
-            outputFile << nameAndValue.first<<endl;
-    }
-    outputFile.close();
+    // Parsing Grammar Rules
+    ProductionGenerator productionGenerator = ProductionGenerator("../CFG.txt");
+    vector<ProductionRule> productionRules = productionGenerator.getProductions();
+    // LL(1)
+    productionRules = productionGenerator.eliminateLR(productionRules, productionRules[0]);
+    productionRules = productionGenerator.leftFactor(productionRules, productionRules[0]);
+    // Create Parsing table
+    ParserUtils parserUtils = ParserUtils(productionRules);
+    ParserToken start =ParserToken(ParserToken::NonTerminal, productionRules[0].name);
+    ParserToken match = ParserToken(ParserToken::Terminal,"int");
+    cout<< parserUtils.get_entry(start, match).second[0].name;
+    TopDownParser topDownParser = TopDownParser(parserUtils,
+                                                ParserToken(ParserToken::NonTerminal, productionRules[0].name));
+    topDownParser.parse();
 
     return 0;
+
 }
+
+/**
+    for(auto &productionRule: productionRules){
+        cout<< productionRule.name<<" : \n";
+        for(auto & rule: productionRule.rules){
+            for(auto &token : rule)
+                cout<< ParserToken::typeName(token.type) << "," << token.name<<" # ";
+            cout<<endl;
+        }
+        cout<<"----------------------------"<<endl;
+    }
+
+ **/

@@ -3,7 +3,8 @@
 //
 #include "lexical_analyzer.h"
 
-LexicalAnalyzer::LexicalAnalyzer(string inputFilePath, DFA dfa,DFA_State startState):dfa(dfa), startState(startState){ inputFile.open(inputFilePath);}
+LexicalAnalyzer::LexicalAnalyzer(string inputFilePath, DFA dfa,DFA_State startState):dfa(dfa), startState(startState)
+{ inputFile.open(inputFilePath);}
 char LexicalAnalyzer::getNextChar(){
     if(fileClosed)
        return ' ';
